@@ -1,4 +1,10 @@
+# Mac OS files
 .DS_Store
+
+# Project files
 .env
 node_modules/
 todo.txt
+
+# UML diagram files
+*.mdj

@@ -2,7 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const walletRoutes = require('./routes/wallet')
+const walletRoutes = require('./server/routes/wallet')
 const app = express()
 
 app.use(bodyParser.json())

@@ -8,4 +8,7 @@ const router = express.Router()
 router.route('/create')
     .get(wallet.create)
 
+router.route('/getLastBlock')
+    .get(wallet.getLastBlock)
+
 module.exports = router

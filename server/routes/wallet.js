@@ -11,4 +11,7 @@ router.route('/create')
 router.route('/getLastBlock')
     .get(wallet.getLastBlock)
 
+router.route('/testDatabase')
+    .get(wallet.testDatabase)
+
 module.exports = router

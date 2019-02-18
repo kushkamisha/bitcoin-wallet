@@ -2,6 +2,7 @@
 
 const bitcore = require('bitcore-lib')
 const btc = require('../../config/connect')
+const db = require('../../db')
 
 /**
  * Generate private key and address for the user
@@ -34,7 +35,32 @@ const getLastBlock = (req, res) => {
         })
 }
 
+const testDatabase = async (req, res) => {
+    const userId = req.query.userId || 12345
+    const data = req.query.data || 'Test data'
+
+    // Save data to the db
+    db.open()
+    const dbResponse = await db.query(`
+        insert into "MnemonicPhrases" ("UserId", "MnemonicPhrase")
+        values
+        (${userId}, '${data}');
+    `)
+    if (dbResponse.err)
+        res.status(500).send({
+            status: 'error',
+            message: `Can't insert data to the database.`
+        })
+    else
+        res.send({
+            status: 'success'
+        })
+
+    // db.close()
+}
+
 module.exports = {
     create,
     getLastBlock,
+    testDatabase,
 }

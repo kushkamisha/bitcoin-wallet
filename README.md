@@ -6,14 +6,10 @@ The core idea of the project is to create a Bitcoin wallet application for IOS o
 The application will contain such functions as receive and send bitcoins, show the user's balance. To make it ready for production should be added such facilities as import/export wallet and option to read the QR code from the smartphone's camera.
 
 ## Requirements
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus felis, consectetur sed tempor et, lobortis eu risus. Sed venenatis porttitor accumsan. Nulla lacinia eu ipsum vitae fermentum. Suspendisse consectetur orci vitae justo tristique facilisis. Donec sollicitudin, magna in interdum sagittis, turpis mauris iaculis est, non molestie dui quam sit amet nisi. Cras dignissim fringilla nulla, at consequat mi accumsan eu. Quisque consequat ante ut metus consequat, nec blandit arcu vulputate.
-
-Etiam a sodales sapien. Phasellus nec tincidunt sapien. Integer non finibus ante, et scelerisque felis. Cras neque metus, tempus sit amet faucibus tincidunt, cursus eu lectus. Curabitur dui dolor, ornare dictum dui mattis, euismod ultricies lectus. Etiam egestas eros id aliquet aliquet. Nulla viverra interdum tortor et convallis. Pellentesque felis augue, tincidunt nec ex vel, lacinia bibendum arcu.
+Requires iOS 12.0 or later. Compatible with iPhone, iPad, and iPod touch. Minimum RAM requirement is 1GB. The app may ask you for access to the camera to scan QR codes.
 
 ## Target audience
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus felis, consectetur sed tempor et, lobortis eu risus. Sed venenatis porttitor accumsan. Nulla lacinia eu ipsum vitae fermentum. Suspendisse consectetur orci vitae justo tristique facilisis. Donec sollicitudin, magna in interdum sagittis, turpis mauris iaculis est, non molestie dui quam sit amet nisi. Cras dignissim fringilla nulla, at consequat mi accumsan eu. Quisque consequat ante ut metus consequat, nec blandit arcu vulputate.
-
-Etiam a sodales sapien. Phasellus nec tincidunt sapien. Integer non finibus ante, et scelerisque felis. Cras neque metus, tempus sit amet faucibus tincidunt, cursus eu lectus. Curabitur dui dolor, ornare dictum dui mattis, euismod ultricies lectus. Etiam egestas eros id aliquet aliquet. Nulla viverra interdum tortor et convallis. Pellentesque felis augue, tincidunt nec ex vel, lacinia bibendum arcu.
+The target audience for this Bitcoin wallet app is mostly young people, who want to play around with cryptocurrencies, but not limited by them. This app is for everybody who has or want to have bitcoin cryptocurrency for any purpose.
 
 ## Use Case diagram
 <p align="center">

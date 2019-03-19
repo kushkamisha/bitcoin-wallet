@@ -1,8 +1,12 @@
 'use strict'
 
+const crypto = require('crypto')
+
 const bitcore = require('bitcore-lib')
+
 const btc = require('../../config/connect')
 const db = require('../../db')
+
 
 /**
  * Generate private key and address for the user
@@ -60,6 +64,7 @@ const testDatabase = async (req, res) => {
 }
 
 module.exports = {
+    toMnemonic,
     create,
     getLastBlock,
     testDatabase,

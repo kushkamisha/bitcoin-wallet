@@ -5,20 +5,25 @@ const crypto = require('crypto')
 const bitcore = require('bitcore-lib')
 
 const btc = require('../../config/connect')
+const bitcoin = require('../utils/bitcoin')
 const db = require('../../db')
 
-
 /**
- * Generate private key and address for the user
+ * Generate private key and address for the user from his seed phrase. If user doesn't have
+ * seed - generate it for him and save it to the database
  */
-const create = (req, res) => {
-    const privateKey = new bitcore.PrivateKey()
-    const address = privateKey.toAddress()
+const createAddress = (req, res) => {
+    const seed = bitcoin.generateSeed()
+    const path = `m/44'/0'/0'/0/0`
+    const child = bitcoin.deriveChild(seed, path)
+    const publicKeyHash = bitcoin.createPublicKeyHash(child.publicKey)
+    const address = bitcoin.createPublicAddress(publicKeyHash)
 
     res.send({
         status: 'success',
-        address: address.toString(),
-        privateKey: privateKey.toString(),
+        address,
+        publicKey: child.publicKey.toString('hex'), 
+        privateKey: child.privateKey.toString('hex'),
     })
 }
 
@@ -64,8 +69,7 @@ const testDatabase = async (req, res) => {
 }
 
 module.exports = {
-    toMnemonic,
-    create,
+    createAddress,
     getLastBlock,
     testDatabase,
 }

@@ -8,8 +8,12 @@
  */
 
 const crypto = require('crypto')
+
+const hdkey = require('hdkey')
 const bs58 = require('bs58')
 const bip39 = require('bip39')
+const sha256 = require('js-sha256')
+const ripemd160 = require('ripemd160')
 
 /**
  * Generate Bitcoin private key from pseudorandom number
@@ -45,6 +49,35 @@ const mnemonicToSeed = (mnemonic, passphrase) => {
 }
 
 /**
+ * Generate seed
+ * @returns {string} Seed
+ */
+const generateSeed = () => {
+    const prKeyBuffer = generatePrKey()
+    const mnemonic = prKeyToMnemonic(prKeyBuffer)
+    const seed = mnemonicToSeed(mnemonic).toString('hex')
+
+    return seed
+}
+
+/**
+ * BIP44
+ * Derives child using path from seed
+ * @param {string} seed - Seed
+ * @param {string} path - Path to the child in the tree (according to BIP44)
+ * @returns {object} Child's public & private keys
+ */
+const deriveChild = (seed, path) => {
+    const root = hdkey.fromMasterSeed(seed)
+    const child = root.deriveChild(path)
+    
+    return {
+        publicKey: child.publicKey,
+        privateKey: child.privateKey
+    }
+}
+
+/**
  * Converts private key from binary to the WIF format
  * @param {Buffer} prkey - Private key
  * @returns {string} Private key in the WIF format
@@ -59,8 +92,6 @@ const prKeyToWIF = (prkey, network='mainnet') => {
     const prefix = network === 'testnet' ?
         networkPrefixes.testnet :
         networkPrefixes.mainnet
-
-    console.log({ prefix })
 
     // Add 0x80 byte to denote mainnet address
     const prefixBuff = Buffer.from(prefix, 'hex')
@@ -80,9 +111,48 @@ const prKeyToWIF = (prkey, network='mainnet') => {
     return bs58.encode(prkey)
 }
 
+/**
+ * Create hash for the public key to use it in address creation prosess
+ * @param {string} publicKey - Public key
+ * @returns {Buffer} Hash of public key
+ */
+const createPublicKeyHash = publicKey => {
+    const hash = sha256(Buffer.from(publicKey, 'hex'))
+    const publicKeyHash = new ripemd160().update(Buffer.from(hash, 'hex')).digest()
+
+    return publicKeyHash
+}
+
+/**
+ * Create compressed bitcoin address from public key hash
+ * @param {Buffre} publicKeyHash - Hash of a public key
+ * @returns {string} Bitcoin address
+ */
+const createPublicAddress = publicKeyHash => {
+    // step 1 - add prefix "00" in hex
+    const step1 = Buffer.from('00' + publicKeyHash.toString('hex'), 'hex')
+    // step 2 - create SHA256 hash of step 1
+    const step2 = sha256(step1)
+    // step 3 - create SHA256 hash of step 2
+    const step3 = sha256(Buffer.from(step2, 'hex'))
+    // step 4 - find the 1st byte of step 3 - save as "checksum"
+    const checksum = step3.substring(0, 8)
+    // step 5 - add step 1 + checksum
+    const step4 = step1.toString('hex') + checksum
+    console.log({ step4 })
+    // return base 58 encoding of step 5
+    const address = bs58.encode(Buffer.from(step4, 'hex'))
+
+    return address
+}
+
 module.exports = {
     generatePrKey,
     prKeyToMnemonic,
     mnemonicToSeed,
+    generateSeed,
+    deriveChild,
     prKeyToWIF,
+    createPublicKeyHash,
+    createPublicAddress,
 }

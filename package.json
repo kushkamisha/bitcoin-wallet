@@ -14,6 +14,7 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "bip39": "^2.5.0",
     "bitcoin-core": "^2.0.0",
     "bitcore-lib": "^0.16.0",

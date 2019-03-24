@@ -11,3 +11,9 @@ CREATE TABLE "Wallets" (
     "Address"    VARCHAR(42) NOT NULL,
     "PrivateKey" VARCHAR(193) NOT NULL
 );
+
+CREATE TABLE "Users" (
+    "UserId"   SERIAL PRIMARY KEY NOT NULL,
+    "Username" VARCHAR(30) NOT NULL,
+    "Password" VARCHAR(60) NOT NULL
+);

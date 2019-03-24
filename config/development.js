@@ -15,5 +15,6 @@ module.exports = {
         database: process.env.DEV_PGDATABASE,
         password: process.env.DEV_PGPASSWORD,
         port: process.env.DEV_PGPORT,
-    }
+    },
+    jwtSecret: process.env.JWT_SECRET
 }

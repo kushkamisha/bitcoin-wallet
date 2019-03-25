@@ -1,5 +1,10 @@
 # API for the Bitcoin crypto wallet
 
+## Project repositories
+[API](https://github.com/kushkamisha/bitcoin-wallet)
+[IOS app](https://github.com/ladroid/KpiMobileDev/tree/iOSDev)
+[Android app](https://github.com/Cyned/BitWallet)
+
 ## Idea
 The core idea of the project is to create a Bitcoin wallet application for IOS operating system. It is supposed to be a mobile application, which connects to the self-developed API. On the server along with the API, there is running a Bitcoin node to obtain maximum speed.
 

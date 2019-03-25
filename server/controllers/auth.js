@@ -5,16 +5,21 @@ const bcrypt = require('bcryptjs')
 const config = require('../../config')
 const db = require('../../db')
 
-const register = (req, res) => {
+class Breaker extends Error {
+    constructor(...args) {
+        super(...args)
+        this.name = 'Breaker'
+    }
+}
 
+const register = (req, res) => {
     if (!req.body.username)
-        res.send({
+        return res.status(400).send({
             status: 'error',
             message: 'Username is not provided.'
         })
-
     if (!req.body.password)
-        res.send({
+        return res.status(400).send({
             status: 'error',
             message: 'Password is not provided.'
         })
@@ -22,76 +27,97 @@ const register = (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 8)
     const username = req.body.username
 
-    db.one(`
+    db.any(`select * from "Users" where "Username" = $1`, username)
+        .then(rows => {
+            if (rows.length) {
+                res.status(400).send({
+                    status: 'error',
+                    message: 'The username was already used.'
+                })
+                throw new Breaker('Username exists')
+            }
+        }, err => {
+            res.status(500).send({
+                status: 'error',
+                message: `Error with the database.`
+            })
+            throw new Breaker(`Can't get users from database`)
+        })
+        .then(() => {
+            db.one(`
             insert into "Users" ("Username", "Password")
             values ('${username}', '${hashedPassword}')
             returning "UserId"`)
-        .then(({ UserId }) => {
-            // Create a token
-            const token = jwt.sign({ UserId }, config.jwtSecret, {
-                expiresIn: 60 * 60 * 24 // expires in 24 hours
-            })
+                .then(({ UserId }) => {
+                    // Create a token
+                    const token = jwt.sign({ UserId }, config.jwtSecret, {
+                        expiresIn: '24h' // expires in 24 hours
+                    })
 
-            res.send({ status: 'success', token })
+                    res.send({ status: 'success', token })
+                }, err => {
+                    res.status(500).send({
+                        status: 'error',
+                        message: `Error with the database.`
+                    })
+                })
         })
         .catch(err => {
+            if (err.name === 'Breaker') return
+
             res.status(500).send({
                 status: 'error',
-                message: `Can't write to the database.`
+                message: 'Internal server error.'
             })
         })
-        .finally(db.$pool.end)
 }
 
-const login = async (req, res) => {
-
-    // if (!req.body.username)
-    //     res.send({
-    //         status: 'error',
-    //         message: 'Username is not provided.'
-    //     })
-
-    // if (!req.body.password)
-    //     res.send({
-    //         status: 'error',
-    //         message: 'Password is not provided.'
-    //     })
+const login = (req, res) => {
+    if (!req.body.username)
+        return res.status(400).send({
+            status: 'error',
+            message: 'Username is not provided.'
+        })
+    if (!req.body.password)
+        return res.status(400).send({
+            status: 'error',
+            message: 'Password is not provided.'
+        })
 
     // const hashedPassword = bcrypt.hashSync(req.body.password, 8)
-    // const username = req.body.username
+    const username = req.body.username
 
-    // await db.open()
-    // await db.query(`
-    //         insert into "Users" ("Username", "Password")
-    //         values ('${username}', '${hashedPassword}')
-    //         returning "UserId"`)
-    //     .then(response => {
-    //         const id = response.res.rows[0].UserId
+    db.any(`select * from "Users" where "Username" = $1`,
+            [username])
+        .then(rows => {
+            const row = rows[0]
+            if (!row)
+                return res.status(400).send({
+                    status: 'error',
+                    message: 'No user with such username & password combination.'
+                })
 
-    //         if (response.err) return res.status(500).send({
-    //             status: 'error',
-    //             message: `Can't write to the database.`
-    //         })
-
-    //         // Create a token
-    //         const token = jwt.sign({ id }, config.jwtSecret, {
-    //             expiresIn: 60 * 60 * 24 // expires in 24 hours
-    //         })
-
-    //         res.send({
-    //             status: 'success',
-    //             token
-    //         })
-    //     })
-    // await db.close()
-    var token = req.headers['x-access-token'];
-    if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
-
-    jwt.verify(token, config.jwtSecret, function (err, decoded) {
-        if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-        res.status(200).send(decoded);
-    })
+            bcrypt.compare(req.body.password, row.Password).then(function (areMatch) {
+                if (!areMatch)
+                    return res.status(400).send({
+                        status: 'error',
+                        message: 'No user with such username & password combination.'
+                    })
+                console.log(row.UserId)
+                // Create a token
+                const token = jwt.sign({ UserId: row.UserId }, config.jwtSecret, {
+                    expiresIn: '24h' // expires in 24 hours
+                })
+                res.send({ status: 'success', token })
+            })
+        }, err => {
+            res.status(500).send({
+                status: 'error',
+                message: `Error with the database.`
+            })
+        })
 }
+
 
 module.exports = {
     register,

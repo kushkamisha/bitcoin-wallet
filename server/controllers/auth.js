@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const config = require('../../config')
 const db = require('../../db')
 
-const register = async (req, res) => {
+const register = (req, res) => {
 
     if (!req.body.username)
         res.send({
@@ -22,30 +22,25 @@ const register = async (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 8)
     const username = req.body.username
 
-    await db.open()
-    await db.query(`
+    db.one(`
             insert into "Users" ("Username", "Password")
             values ('${username}', '${hashedPassword}')
             returning "UserId"`)
-        .then(response => {
-            const id = response.res.rows[0].UserId
-
-            if (response.err) return res.status(500).send({
-                status: 'error',
-                message: `Can't write to the database.`
-            })
-
+        .then(({ UserId }) => {
             // Create a token
-            const token = jwt.sign({ id }, config.jwtSecret, {
+            const token = jwt.sign({ UserId }, config.jwtSecret, {
                 expiresIn: 60 * 60 * 24 // expires in 24 hours
             })
 
-            res.send({
-                status: 'success',
-                token
+            res.send({ status: 'success', token })
+        })
+        .catch(err => {
+            res.status(500).send({
+                status: 'error',
+                message: `Can't write to the database.`
             })
         })
-    await db.close()
+        .finally(db.$pool.end)
 }
 
 const login = async (req, res) => {

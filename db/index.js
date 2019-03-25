@@ -1,15 +1,18 @@
 'use strict'
 
-const { Client } = require('pg')
+const promise = require('bluebird')
 const config = require('../config')
+const pgp = require('pg-promise')({ promiseLib: promise })
 
-const client = new Client(config.db)
-
-module.exports = {
-    open: () => client.connect(),
-    close: () => client.end(),
-    query: (text, params) =>
-        client.query(text, params)
-            .then(res => ({ err: null, res }))
-            .catch(err => ({ err, res: null })),
+const cn = {
+    host: config.db.host,
+    port: config.db.port,
+    database: config.db.database,
+    user: config.db.user,
+    password: config.db.password
 }
+const db = pgp(cn)
+// pgp.end(); // shuts down all connection pools created in the process
+
+
+module.exports = db

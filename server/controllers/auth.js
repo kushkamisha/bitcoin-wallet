@@ -84,7 +84,6 @@ const login = (req, res) => {
             message: 'Password is not provided.'
         })
 
-    // const hashedPassword = bcrypt.hashSync(req.body.password, 8)
     const username = req.body.username
 
     db.any(`select * from "Users" where "Username" = $1`,
@@ -119,7 +118,9 @@ const login = (req, res) => {
 }
 
 
+
+
 module.exports = {
     register,
-    login
+    login,
 }

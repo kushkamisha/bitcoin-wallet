@@ -8,7 +8,6 @@
  */
 
 const crypto = require('crypto')
-
 const hdkey = require('hdkey')
 const bs58 = require('bs58')
 const bip39 = require('bip39')
@@ -50,14 +49,13 @@ const mnemonicToSeed = (mnemonic, passphrase) => {
 
 /**
  * Generate seed
- * @returns {string} Seed
+ * @returns {string} Mnemonic phrse
  */
-const generateSeed = () => {
+const generateMnemonic = () => {
     const prKeyBuffer = generatePrKey()
     const mnemonic = prKeyToMnemonic(prKeyBuffer)
-    const seed = mnemonicToSeed(mnemonic).toString('hex')
 
-    return seed
+    return mnemonic
 }
 
 /**
@@ -150,7 +148,7 @@ module.exports = {
     generatePrKey,
     prKeyToMnemonic,
     mnemonicToSeed,
-    generateSeed,
+    generateMnemonic,
     deriveChild,
     prKeyToWIF,
     createPublicKeyHash,

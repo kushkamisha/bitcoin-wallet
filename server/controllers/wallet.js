@@ -1,12 +1,29 @@
 'use strict'
 
-const crypto = require('crypto')
-
-const bitcore = require('bitcore-lib')
-
 const btc = require('../../config/connect')
 const bitcoin = require('../utils/bitcoin')
 const db = require('../../db')
+const crypto = require('../crypto')
+
+const createWallet = (req, res) => {
+    const mnemonic = bitcoin.generateMnemonic()
+    const encrypted = crypto.encrypt(mnemonic)
+
+    db.none(`insert into "MnemonicPhrases" ("MnemonicPhrase", "UserId") values ($1, $2)`,
+            [encrypted, res.locals.UserId])
+        .then(() => {
+            res.send({
+                status: 'success',
+                message: 'New mnemonic phrase was created.'
+            })
+        }, err => {
+            console.error({ err })
+            res.status(500).send({
+                status: 'error',
+                message: 'Failed to generate & save mnemonic.'
+            })
+        })
+}
 
 /**
  * Generate private key and address for the user from his seed phrase. If user doesn't have
@@ -44,32 +61,9 @@ const getLastBlock = (req, res) => {
         })
 }
 
-const testDatabase = async (req, res) => {
-    const userId = req.query.userId || 12345
-    const data = req.query.data || 'Test data'
-
-    // Save data to the db
-    db.open()
-    const dbResponse = await db.query(`
-        insert into "MnemonicPhrases" ("UserId", "MnemonicPhrase")
-        values
-        (${userId}, '${data}');
-    `)
-    if (dbResponse.err)
-        res.status(500).send({
-            status: 'error',
-            message: `Can't insert data to the database.`
-        })
-    else
-        res.send({
-            status: 'success'
-        })
-
-    // db.close()
-}
 
 module.exports = {
+    createWallet,
     createAddress,
     getLastBlock,
-    testDatabase,
 }

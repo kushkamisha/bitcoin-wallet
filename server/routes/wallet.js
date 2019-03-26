@@ -2,7 +2,11 @@
 
 const express = require('express')
 const wallet = require('../controllers/wallet')
+const mdl = require('../middleware')
 const router = express.Router()
+
+router.route('/createWallet')
+    .get(mdl.checkToken, wallet.createWallet)
 
 /** GET /wallet/create - Create wallet for the user */
 router.route('/createAddress')
@@ -11,7 +15,5 @@ router.route('/createAddress')
 router.route('/getLastBlock')
     .get(wallet.getLastBlock)
 
-router.route('/testDatabase')
-    .get(wallet.testDatabase)
 
 module.exports = router

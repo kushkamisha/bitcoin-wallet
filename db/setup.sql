@@ -1,7 +1,8 @@
 CREATE TABLE "MnemonicPhrases" (
     "MnemonicId"     SERIAL PRIMARY KEY NOT NULL,
     "UserId"         INT4 NOT NULL,
-    "MnemonicPhrase" VARCHAR(449) NOT NULL
+    "MnemonicPhrase" VARCHAR(449) NOT NULL,
+    "CurrentPrKeyId" INT4 NOT NULL DEFAULT 0
 );
 
 CREATE TABLE "Wallets" (

@@ -10,7 +10,7 @@ router.route('/createWallet')
 
 /** GET /wallet/create - Create wallet for the user */
 router.route('/createAddress')
-    .get(wallet.createAddress)
+    .get(mdl.checkToken, wallet.createAddress)
 
 router.route('/getLastBlock')
     .get(wallet.getLastBlock)

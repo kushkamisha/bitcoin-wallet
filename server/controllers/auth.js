@@ -4,13 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const config = require('../../config')
 const db = require('../../db')
-
-class Breaker extends Error {
-    constructor(...args) {
-        super(...args)
-        this.name = 'Breaker'
-    }
-}
+const Breaker = require('../utils/breaker')
 
 const register = (req, res) => {
     if (!req.body.username)
@@ -36,35 +30,22 @@ const register = (req, res) => {
                 })
                 throw new Breaker('Username exists')
             }
-        }, err => {
-            res.status(500).send({
-                status: 'error',
-                message: `Error with the database.`
-            })
-            throw new Breaker(`Can't get users from database`)
-        })
-        .then(() => {
-            db.one(`
-            insert into "Users" ("Username", "Password")
-            values ('${username}', '${hashedPassword}')
-            returning "UserId"`)
-                .then(({ UserId }) => {
-                    // Create a token
-                    const token = jwt.sign({ UserId }, config.jwtSecret, {
-                        expiresIn: '24h' // expires in 24 hours
-                    })
 
-                    res.send({ status: 'success', token })
-                }, err => {
-                    res.status(500).send({
-                        status: 'error',
-                        message: `Error with the database.`
-                    })
-                })
+            return db.one(`insert into "Users" ("Username", "Password")
+                    values ($1, $2) returning "UserId"`, [username, hashedPassword])
+        })
+        .then(({ UserId }) => {
+            // Create a token
+            const token = jwt.sign({ UserId }, config.jwtSecret, {
+                expiresIn: '24h' // expires in 24 hours
+            })
+
+            res.send({ status: 'success', token })
         })
         .catch(err => {
             if (err.name === 'Breaker') return
 
+            console.error({ err })
             res.status(500).send({
                 status: 'error',
                 message: 'Internal server error.'

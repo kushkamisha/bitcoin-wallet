@@ -67,7 +67,7 @@ const generateMnemonic = () => {
  */
 const deriveChild = (seed, path) => {
     const root = hdkey.fromMasterSeed(seed)
-    const child = root.deriveChild(path)
+    const child = root.derive(path)
     
     return {
         publicKey: child.publicKey,
@@ -144,6 +144,29 @@ const createPublicAddress = publicKeyHash => {
     return address
 }
 
+/**
+ * Create bitcoin address using mnemonic phrase.
+ * @param {string} mnemonic - Mnemonic phrase
+ * @param {boolean} isChange - Is new address will be used to receive chnge or not
+ * @param {number} userId - ID of the user, who ownes mnemonic phrase
+ * @returns {Object} Address, public key and private key
+ */
+const createAddress = (mnemonic, isChange, currentPrKeyId) => {
+    const seed = mnemonicToSeed(mnemonic)
+
+    let path = `m/44'/0'/0'`
+    path = isChange ? path + '/1' : path + '/0'
+    path += `/${currentPrKeyId}`
+
+    const child = deriveChild(seed, path)
+    const publicKeyHash = createPublicKeyHash(child.publicKey)
+    const address = createPublicAddress(publicKeyHash)
+    const publicKey = child.publicKey.toString('hex')
+    const privateKey = child.privateKey.toString('hex')
+
+    return { address, publicKey, privateKey }
+}
+
 module.exports = {
     generatePrKey,
     prKeyToMnemonic,
@@ -153,4 +176,5 @@ module.exports = {
     prKeyToWIF,
     createPublicKeyHash,
     createPublicAddress,
+    createAddress,
 }

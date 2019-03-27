@@ -1,8 +1,8 @@
 # API for the Bitcoin crypto wallet
 
 ## Project repositories
-[API](https://github.com/kushkamisha/bitcoin-wallet)
-[IOS app](https://github.com/ladroid/KpiMobileDev/tree/iOSDev)
+[API](https://github.com/kushkamisha/bitcoin-wallet)<br>
+[IOS app](https://github.com/ladroid/KpiMobileDev/tree/iOSDev)<br>
 [Android app](https://github.com/Cyned/BitWallet)
 
 ## Idea

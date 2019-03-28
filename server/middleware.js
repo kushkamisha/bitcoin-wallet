@@ -10,9 +10,9 @@ const checkToken = (req, res, next) => {
     jwt.verify(token, config.jwtSecret, function (err, decoded) {
         if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' })
 
-        res.locals = {}
-        res.locals.UserId = decoded.UserId
-        res.locals.token = { iat: decoded.iat, exp: decoded.exp }
+        req.locals = {}
+        req.locals.UserId = decoded.UserId
+        req.locals.token = { iat: decoded.iat, exp: decoded.exp }
         next()
     })
 }

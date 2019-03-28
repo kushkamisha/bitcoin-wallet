@@ -1,7 +1,7 @@
 'use strict'
 
 const crypto = require('crypto')
-const config = require('../config')
+const config = require('../../config')
 
 const IV_LENGTH = 16 // For AES, this is always 16
 

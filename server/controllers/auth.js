@@ -83,7 +83,6 @@ const login = (req, res) => {
                         status: 'error',
                         message: 'No user with such username & password combination.'
                     })
-                console.log(row.UserId)
                 // Create a token
                 const token = jwt.sign({ UserId: row.UserId }, config.jwtSecret, {
                     expiresIn: '24h' // expires in 24 hours

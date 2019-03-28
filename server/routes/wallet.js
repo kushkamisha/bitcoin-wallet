@@ -12,6 +12,9 @@ router.route('/createWallet')
 router.route('/createAddress')
     .get(mdl.checkToken, wallet.createAddress)
 
+router.route('/getMyMnemonic')
+    .get(mdl.checkToken, wallet.getMyMnemonic)
+
 router.route('/getLastBlock')
     .get(wallet.getLastBlock)
 

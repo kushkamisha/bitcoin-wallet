@@ -3,32 +3,32 @@
 const btc = require('../../config/connect')
 const bitcoin = require('../utils/bitcoin')
 const db = require('../../db')
-const crypto = require('../crypto')
+const crypto = require('../utils/crypto')
 const Breaker = require('../utils/breaker')
 
 const createWallet = (req, res) => {
     const mnemonic = bitcoin.generateMnemonic()
     const encrypted = crypto.encrypt(mnemonic)
-
-    db.one(`select count(*) from "MnemonicPhrases" where "UserId" = $1`, [res.locals.UserId])
+    db.one(`select count(*) from "MnemonicPhrases" where "UserId" = $1`, [req.locals.UserId])
         .then(data => {
             const numOfRows = parseInt(data.count)
             
             if (numOfRows) {
                 res.status(400).send({
                     status: 'error',
-                    message: 'User already has a mnemonic phrase'
+                    message: 'User already has a mnemonic phrase.'
                 })
                 throw new Breaker('Mnemonic for this user exists')
             }
 
             return db.none(`insert into "MnemonicPhrases" ("MnemonicPhrase", "UserId")
-                            values ($1, $2)`, [encrypted, res.locals.UserId])
+                            values ($1, $2)`, [encrypted, req.locals.UserId])
         })
         .then(() => {
             res.send({
                 status: 'success',
-                message: 'New mnemonic phrase was created.'
+                message: 'Mnemonic phrase was created.'
+                // mnemonic
             })
         })
         .catch(err => {
@@ -49,9 +49,9 @@ const createWallet = (req, res) => {
 const createAddress = (req, res) => {
     
     db.any(`select "MnemonicPhrase", "CurrentPrKeyId" from "MnemonicPhrases" where "UserId" = $1`,
-            [res.locals.UserId])
+            [req.locals.UserId])
         .then(data => {
-            if (!data[0].MnemonicPhrase.length)
+            if (!data.length)
                 return res.status(400).send({
                     status: 'error',
                     message: `User should has mnemonic phrase to create address.`
@@ -72,6 +72,25 @@ const createAddress = (req, res) => {
         .catch(err => {
             if (err.name === 'Breaker') return
 
+            console.error({ err })
+            res.status(500).send({
+                status: 'error',
+                message: 'Error with the database.'
+            })
+        })
+}
+
+const getMyMnemonic = (req, res) => {
+    db.one(`select "MnemonicPhrase" from "MnemonicPhrases" where "UserId" = $1`,
+        [req.locals.UserId])
+        .then(({ MnemonicPhrase }) => {
+            const mnemonic = crypto.decrypt(MnemonicPhrase)
+
+            res.send({
+                status: 'success',
+                mnemonic
+            })
+        }, err => {
             console.error({ err })
             res.status(500).send({
                 status: 'error',
@@ -101,5 +120,6 @@ const getLastBlock = (req, res) => {
 module.exports = {
     createWallet,
     createAddress,
+    getMyMnemonic,
     getLastBlock,
 }

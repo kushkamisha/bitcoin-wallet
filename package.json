@@ -4,16 +4,26 @@
   "description": "Bitcoin crypto wallet API",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node_modules/mocha/bin/mocha --recursive",
     "start": "./node_modules/nodemon/bin/nodemon.js server.js",
     "lint": "node_modules/eslint/bin/eslint.js ."
   },
-  "keywords": [],
+  "keywords": [
+    "bitcoin",
+    "api",
+    "bitcoin-wallet",
+    "crypto-wallet"
+  ],
   "author": "Misha Kushka",
+  "homepage": "https://github.com/kushkamisha/bitcoin-wallet",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^5.16.0",
-    "nodemon": "^1.18.10"
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
+    "sinon": "^7.3.1",
+    "swagger-ui-express": "^4.0.2"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

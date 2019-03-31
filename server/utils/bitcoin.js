@@ -17,10 +17,12 @@ const ripemd160 = require('ripemd160')
 /**
  * Generate Bitcoin private key from pseudorandom number
  * @todo Make private key more random
+ * @param {number} len Length in bits of private key. Should be either 256 or 128
  * @returns {Buffer} Bitcoin private key
  */
-const generatePrKey = () => {
-    const DH = crypto.createDiffieHellman(256)
+function generatePrKey(len=256) {
+    if (![128, 256].includes(len)) len = 256
+    const DH = crypto.createDiffieHellman(len)
     DH.generateKeys()
     const prKey = DH.getPrivateKey()
 
@@ -30,11 +32,22 @@ const generatePrKey = () => {
 /**
  * BIP39
  * Creates mnemonic phrase from a private key
- * @param {Buffer} prkey - Private key 
+ * @param {Buffer|String} prkey - Private key. It's length should be either 256 or 128 bits
  * @returns {string} Mnemonic phrase (24 words)
  */
-const prKeyToMnemonic = prkey => {
+function prKeyToMnemonic(prkey) {
     return bip39.entropyToMnemonic(prkey, bip39.wordlists.english)
+}
+
+/**
+ * Generate seed
+ * @returns {string} Mnemonic phrse
+ */
+function generateMnemonic(len=256) {
+    const prKeyBuffer = generatePrKey(len)
+    const mnemonic = prKeyToMnemonic(prKeyBuffer)
+
+    return mnemonic
 }
 
 /**
@@ -45,17 +58,6 @@ const prKeyToMnemonic = prkey => {
  */
 const mnemonicToSeed = (mnemonic, passphrase) => {
     return bip39.mnemonicToSeed(mnemonic, passphrase)
-}
-
-/**
- * Generate seed
- * @returns {string} Mnemonic phrse
- */
-const generateMnemonic = () => {
-    const prKeyBuffer = generatePrKey()
-    const mnemonic = prKeyToMnemonic(prKeyBuffer)
-
-    return mnemonic
 }
 
 /**
@@ -73,40 +75,6 @@ const deriveChild = (seed, path) => {
         publicKey: child.publicKey,
         privateKey: child.privateKey
     }
-}
-
-/**
- * Converts private key from binary to the WIF format
- * @param {Buffer} prkey - Private key
- * @returns {string} Private key in the WIF format
- */
-const prKeyToWIF = (prkey, network='mainnet') => {
-
-    const networkPrefixes = {
-        mainnet: '80',
-        testnet: 'EF'
-    }
-
-    const prefix = network === 'testnet' ?
-        networkPrefixes.testnet :
-        networkPrefixes.mainnet
-
-    // Add 0x80 byte to denote mainnet address
-    const prefixBuff = Buffer.from(prefix, 'hex')
-    prkey = Buffer.concat([prefixBuff, prkey])
-
-    // Perform sha256 hashing two times
-    const hash1 = crypto.createHash('sha256').update(prkey).digest()
-    const hash2 = crypto.createHash('sha256').update(hash1).digest()
-
-    // Get first 4 bytes to create checksum
-    const checksum = hash2.slice(0, 4)
-
-    // Add checksum to the end of private key with prefix
-    prkey = Buffer.concat([prkey, checksum])
-
-    // Convert private key to base58 format
-    return bs58.encode(prkey)
 }
 
 /**
@@ -166,14 +134,48 @@ const createAddress = (mnemonic, isChange, currentPrKeyId) => {
     return { address, publicKey, privateKey }
 }
 
+/**
+ * Converts private key from binary to the WIF format
+ * @param {Buffer} prkey - Private key
+ * @returns {string} Private key in the WIF format
+ */
+const prKeyToWIF = (prkey, network = 'mainnet') => {
+
+    const networkPrefixes = {
+        mainnet: '80',
+        testnet: 'EF'
+    }
+
+    const prefix = network === 'testnet' ?
+        networkPrefixes.testnet :
+        networkPrefixes.mainnet
+
+    // Add 0x80 byte to denote mainnet address
+    const prefixBuff = Buffer.from(prefix, 'hex')
+    prkey = Buffer.concat([prefixBuff, prkey])
+
+    // Perform sha256 hashing two times
+    const hash1 = crypto.createHash('sha256').update(prkey).digest()
+    const hash2 = crypto.createHash('sha256').update(hash1).digest()
+
+    // Get first 4 bytes to create checksum
+    const checksum = hash2.slice(0, 4)
+
+    // Add checksum to the end of private key with prefix
+    prkey = Buffer.concat([prkey, checksum])
+
+    // Convert private key to base58 format
+    return bs58.encode(prkey)
+}
+
 module.exports = {
-    generatePrKey,
-    prKeyToMnemonic,
-    mnemonicToSeed,
+    generatePrKey, // internal
+    prKeyToMnemonic, // internal
     generateMnemonic,
-    deriveChild,
-    prKeyToWIF,
-    createPublicKeyHash,
-    createPublicAddress,
+    mnemonicToSeed, // internal
+    deriveChild, // internal
+    createPublicKeyHash, // internal
+    createPublicAddress, // internal
     createAddress,
+    prKeyToWIF,
 }

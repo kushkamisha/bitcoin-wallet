@@ -4,6 +4,7 @@ const btc = require('../../config/connect')
 const bitcoin = require('../utils/bitcoin')
 const db = require('../../db')
 const crypto = require('../utils/crypto')
+const logger = require('../../logger')
 const Breaker = require('../utils/breaker')
 
 const createWallet = (req, res) => {
@@ -34,7 +35,7 @@ const createWallet = (req, res) => {
         .catch(err => {
             if (err.name === 'Breaker') return
 
-            console.error({ err })
+            logger.error(err)
             res.status(500).send({
                 status: 'error',
                 message: 'Error with the database.'
@@ -49,7 +50,7 @@ const createWallet = (req, res) => {
 const createAddress = (req, res) => {
     
     db.any(`select "MnemonicPhrase", "CurrentPrKeyId" from "MnemonicPhrases" where "UserId" = $1`,
-            [req.locals.UserId])
+        [req.locals.UserId])
         .then(data => {
             if (!data.length)
                 return res.status(400).send({
@@ -72,7 +73,7 @@ const createAddress = (req, res) => {
         .catch(err => {
             if (err.name === 'Breaker') return
 
-            console.error({ err })
+            logger.error(err)
             res.status(500).send({
                 status: 'error',
                 message: 'Error with the database.'
@@ -91,7 +92,7 @@ const getMyMnemonic = (req, res) => {
                 mnemonic
             })
         }, err => {
-            console.error({ err })
+            logger.error(err)
             res.status(500).send({
                 status: 'error',
                 message: 'Error with the database.'
@@ -108,7 +109,7 @@ const getLastBlock = (req, res) => {
             })
         })
         .catch(err => {
-            console.error({ err })
+            logger.error(err)
             res.status(500).send({
                 status: 'error',
                 message: `Can't connect to the Bitcoin node.`

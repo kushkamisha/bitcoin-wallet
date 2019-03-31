@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/nodemon/bin/nodemon.js server.js"
+    "start": "./node_modules/nodemon/bin/nodemon.js server.js",
+    "lint": "node_modules/eslint/bin/eslint.js ."
   },
   "keywords": [],
   "author": "Misha Kushka",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^5.16.0",
     "nodemon": "^1.18.10"
   },
   "dependencies": {
@@ -30,6 +32,8 @@
     "pg": "^7.8.0",
     "pg-promise": "^8.6.4",
     "ripemd160": "^2.0.2",
-    "secp256k1": "^3.6.2"
+    "secp256k1": "^3.6.2",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.8.0"
   }
 }

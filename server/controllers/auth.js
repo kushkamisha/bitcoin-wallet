@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const config = require('../../config')
 const db = require('../../db')
+const logger = require('../../logger')
 const Breaker = require('../utils/breaker')
 
 const register = (req, res) => {
@@ -45,7 +46,7 @@ const register = (req, res) => {
         .catch(err => {
             if (err.name === 'Breaker') return
 
-            console.error({ err })
+            logger.error(err)
             res.status(500).send({
                 status: 'error',
                 message: 'Internal server error.'
@@ -68,7 +69,7 @@ const login = (req, res) => {
     const username = req.body.username
 
     db.any(`select * from "Users" where "Username" = $1`,
-            [username])
+        [username])
         .then(rows => {
             const row = rows[0]
             if (!row)
@@ -90,6 +91,7 @@ const login = (req, res) => {
                 res.send({ status: 'success', token })
             })
         }, err => {
+            logger.error(err)
             res.status(500).send({
                 status: 'error',
                 message: `Error with the database.`

@@ -137,7 +137,6 @@ const createPublicAddress = publicKeyHash => {
     const checksum = step3.substring(0, 8)
     // step 5 - add step 1 + checksum
     const step4 = step1.toString('hex') + checksum
-    console.log({ step4 })
     // return base 58 encoding of step 5
     const address = bs58.encode(Buffer.from(step4, 'hex'))
 

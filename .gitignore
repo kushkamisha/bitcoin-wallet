@@ -4,6 +4,7 @@
 # Project files
 .env
 node_modules/
+log/
 todo.txt
 
 # UML diagram files

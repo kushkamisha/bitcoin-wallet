@@ -17,6 +17,19 @@ const checkToken = (req, res, next) => {
     })
 }
 
+const bitcoinCliQuery = (req, res, next) => {
+    switch(req.url) {
+        case config.walletUrl.createAddress:
+            req.locals.bitcoinCliQuery = `{ "id": "getnewaddress", "method": "getnewaddress", "params": ["${req.locals.UserId}", "legacy"] }`
+            break
+        case config.walletUrl.getBalance:
+            req.locals.bitcoinCliQuery = `{ "id": "listunspent", "method": "listunspent", "params": [] }`
+            break
+    }
+    next()
+}
+
 module.exports = {
-    checkToken
+    checkToken,
+    bitcoinCliQuery,
 }

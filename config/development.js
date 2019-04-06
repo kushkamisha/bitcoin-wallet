@@ -16,6 +16,10 @@ module.exports = {
         password: process.env.DEV_PGPASSWORD,
         port: process.env.DEV_PGPORT,
     },
+    walletUrl: {
+        createAddress: '/createAddress',
+        getBalance: '/getBalance',
+    },
     jwtSecret: process.env.DEV_JWT_SECRET,
     encryptionKey: process.env.DEV_ENCRYPTION_KEY
 }

@@ -1,126 +1,78 @@
 'use strict'
 
-const btc = require('../../config/connect')
-const bitcoin = require('../utils/bitcoin')
-const db = require('../../db')
-const crypto = require('../utils/crypto')
 const logger = require('../../logger')
-const Breaker = require('../utils/breaker')
+const request = require('request')
+const config = require('../../config')
 
-const createWallet = (req, res) => {
-    const mnemonic = bitcoin.generateMnemonic()
-    const encrypted = crypto.encrypt(mnemonic)
-    db.one(`select count(*) from "MnemonicPhrases" where "UserId" = $1`, [req.locals.UserId])
-        .then(data => {
-            const numOfRows = parseInt(data.count)
-            
-            if (numOfRows) {
-                res.status(400).send({
-                    status: 'error',
-                    message: 'User already has a mnemonic phrase.'
-                })
-                throw new Breaker('Mnemonic for this user exists')
-            }
+const bitcoinCli = req => new Promise((resolve, reject) => {
+    const options = {
+        url: 'http://127.0.0.1:18332/',
+        method: 'POST',
+        headers: { 'content-type': 'text/plain;' },
+        body: req.locals.bitcoinCliQuery,
+        auth: {
+            'user': config.rpc.username,
+            'pass': config.rpc.password
+        }
+    }
 
-            return db.none(`insert into "MnemonicPhrases" ("MnemonicPhrase", "UserId")
-                            values ($1, $2)`, [encrypted, req.locals.UserId])
-        })
-        .then(() => {
-            res.send({
-                status: 'success',
-                message: 'Mnemonic phrase was created.'
-                // mnemonic
-            })
-        })
-        .catch(err => {
-            if (err.name === 'Breaker') return
+    request(options, (err, response, body) => {
+        if (err) return reject(err)
 
-            logger.error(err)
-            res.status(500).send({
-                status: 'error',
-                message: 'Error with the database.'
-            })
-        })
-}
+        const result = JSON.parse(body)
 
-/**
- * Generate private key and address for the user from his seed phrase. If user doesn't have
- * seed - generate it for him and save it to the database
- */
+        if (result.error)
+            return reject(`Bitcoin node error.\n Code: ${result.error.code}\n Message: ${result.error.message}`)
+
+        resolve(result)
+    })
+})
+
+const txsToBalance = ({ txs, minConfirmations, userId }) => 
+    txs
+        .filter(tx => tx.label == userId)
+        .filter(tx => tx.confirmations >= minConfirmations)
+        .reduce((acc, tx) => acc + tx.amount, 0)
+
 const createAddress = (req, res) => {
-    
-    db.any(`select "MnemonicPhrase", "CurrentPrKeyId" from "MnemonicPhrases" where "UserId" = $1`,
-        [req.locals.UserId])
-        .then(data => {
-            if (!data.length)
-                return res.status(400).send({
-                    status: 'error',
-                    message: `User should has mnemonic phrase to create address.`
-                })
-
-            const mnemonicEncrypted = data[0].MnemonicPhrase
-            const mnemonic = crypto.decrypt(mnemonicEncrypted)
-            const {
-                address,
-                publicKey,
-                privateKey
-            } = bitcoin.createAddress(mnemonic, false, data[0].CurrentPrKeyId)
-
-            res.send({ status: 'success', address, publicKey, privateKey })
-            db.none(`update "MnemonicPhrases" set "CurrentPrKeyId" = $1 where "UserId" = 49;`,
-                [++data[0].CurrentPrKeyId])
-        })
-        .catch(err => {
-            if (err.name === 'Breaker') return
-
-            logger.error(err)
-            res.status(500).send({
-                status: 'error',
-                message: 'Error with the database.'
-            })
-        })
-}
-
-const getMyMnemonic = (req, res) => {
-    db.one(`select "MnemonicPhrase" from "MnemonicPhrases" where "UserId" = $1`,
-        [req.locals.UserId])
-        .then(({ MnemonicPhrase }) => {
-            const mnemonic = crypto.decrypt(MnemonicPhrase)
-
+    bitcoinCli(req, res)
+        .then(result => {
             res.send({
                 status: 'success',
-                mnemonic
+                address: result.result
             })
         }, err => {
             logger.error(err)
             res.status(500).send({
                 status: 'error',
-                message: 'Error with the database.'
+                message: 'Internal server error.'
             })
         })
 }
 
-const getLastBlock = (req, res) => {
-    btc.command('getblockcount')
-        .then(block => {
+const getBalance = (req, res) => {
+    bitcoinCli(req, res)
+        .then(result => {
+            const balance = txsToBalance({
+                txs: result.result,
+                minConfirmations: 1, // min is 1 confirmation
+                userId: req.locals.UserId
+            })
             res.send({
                 status: 'success',
-                block
+                balance // in BTC
             })
-        })
-        .catch(err => {
+        }, err => {
             logger.error(err)
             res.status(500).send({
                 status: 'error',
-                message: `Can't connect to the Bitcoin node.`
+                message: 'Internal server error.'
             })
         })
 }
 
 
 module.exports = {
-    createWallet,
     createAddress,
-    getMyMnemonic,
-    getLastBlock,
+    getBalance,
 }

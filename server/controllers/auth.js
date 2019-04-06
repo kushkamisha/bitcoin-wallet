@@ -99,10 +99,16 @@ const login = (req, res) => {
         })
 }
 
-
+const getMyId = (req, res) => {
+    res.send({
+        status: 'success',
+        id: req.locals.UserId
+    })
+}
 
 
 module.exports = {
     register,
     login,
+    getMyId
 }

@@ -12,5 +12,8 @@ router.route(config.walletUrl.createAddress)
 router.route(config.walletUrl.getBalance)
     .get(mdl.checkToken, mdl.bitcoinCliQuery, wallet.getBalance)
 
+router.route(config.walletUrl.sendTransaction)
+    .get(mdl.checkToken, wallet.sendTransaction)
+
 
 module.exports = router

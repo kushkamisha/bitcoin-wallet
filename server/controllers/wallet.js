@@ -71,8 +71,22 @@ const getBalance = (req, res) => {
         })
 }
 
+const sendTransaction = (req, res) => {
+    let amount = req.headers.amount
+    if (!amount) return res.status(400).send({ status: 'error', message: 'No amount provided.' })
+
+    amount = parseFloat(amount)
+    if (isNaN(amount)) return res.status(400).send({ status: 'error', message: 'Amount should be a number.'})
+
+    res.send({
+        status: 'success',
+        amount
+    })
+}
+
 
 module.exports = {
     createAddress,
     getBalance,
+    sendTransaction
 }

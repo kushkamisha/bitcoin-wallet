@@ -110,7 +110,7 @@ const getTransactions = (req, res) => {
             {
                 timestamp: 1554896530,
                 address: 'n3R3d3UiZoq2cWek8qqqXVStk2aAK44wcB',
-                amount: 0.5,
+                amount: 0.63687632,
                 direction: 'in',
                 confirmations: 0
             },

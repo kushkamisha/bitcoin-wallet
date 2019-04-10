@@ -19,7 +19,8 @@ module.exports = {
     walletUrl: {
         createAddress: '/createAddress',
         getBalance: '/getBalance',
-        sendTransaction: '/sendTransaction'
+        sendTransaction: '/sendTransaction',
+        getTransactions: '/getTransactions'
     },
     jwtSecret: process.env.DEV_JWT_SECRET,
     encryptionKey: process.env.DEV_ENCRYPTION_KEY

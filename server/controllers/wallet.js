@@ -51,6 +51,16 @@ const createAddress = (req, res) => {
 }
 
 const getBalance = (req, res) => {
+    // TO REMOVE!!! Just for test
+    if (req.locals.UserId === 7) {
+        const balance = 5.87390229089
+        return res.status(500).send({
+            status: 'success',
+            balance
+        })
+    }
+    // end
+
     bitcoinCli(req, res)
         .then(result => {
             const balance = txsToBalance({
@@ -84,9 +94,63 @@ const sendTransaction = (req, res) => {
     })
 }
 
+const getTransactions = (req, res) => {
+    // TO REMOVE!!! Just for test
+    if (req.locals.UserId === 7) {
+        const currentBlock = 571019
+        const txsBlock = [571017, 570973, 570668, 568584]
+        const transactions = [
+            {
+                timestamp: 1554896510,
+                address: 'mpxcemjXGdzwjUcjRb18VABtiXfw3uvekr',
+                amount: 3.95772229089,
+                direction: 'in',
+                confirmations: 0
+            },
+            {
+                timestamp: 1554896530,
+                address: 'n3R3d3UiZoq2cWek8qqqXVStk2aAK44wcB',
+                amount: 0.5,
+                direction: 'in',
+                confirmations: 0
+            },
+            {
+                timestamp: 1554896552,
+                address: 'mpxcemjXGdzwjUcjRb18VABtiXfw3uvekr',
+                amount: 1.58382,
+                direction: 'out',
+                confirmations: 0
+            },
+            {
+                timestamp: 1554896593,
+                address: 'mtXWDB6k5yC5v7TcwKZHB89SUp85yCKshy',
+                amount: 3,
+                direction: 'in',
+                confirmations: 0
+            }
+        ]
+
+        transactions.forEach((tx, i) => {
+            tx.confirmations = currentBlock - txsBlock[i]
+        })
+
+        res.send({
+            status: 'success',
+            transactions
+        })
+        // end
+    } else {
+        res.status(500).send({
+            status: 'error',
+            message: `Can't get transactions list.`
+        })
+    }
+}
+
 
 module.exports = {
     createAddress,
     getBalance,
-    sendTransaction
+    sendTransaction,
+    getTransactions
 }

@@ -15,5 +15,8 @@ router.route(config.walletUrl.getBalance)
 router.route(config.walletUrl.sendTransaction)
     .get(mdl.checkToken, wallet.sendTransaction)
 
+router.route(config.walletUrl.getTransactions)
+    .get(mdl.checkToken, wallet.getTransactions)
+
 
 module.exports = router

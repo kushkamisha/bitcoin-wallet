@@ -52,13 +52,13 @@ const createAddress = (req, res) => {
 
 const getBalance = (req, res) => {
     // TO REMOVE!!! Just for test
-    if (req.locals.UserId === 7) {
+    /*if (req.locals.UserId === 7) {
         const balance = 5.87390229089
         return res.status(500).send({
             status: 'success',
             balance
         })
-    }
+    }*/
     // end
 
     bitcoinCli(req, res)

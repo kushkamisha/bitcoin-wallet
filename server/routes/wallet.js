@@ -16,7 +16,7 @@ router.route(config.walletUrl.sendTransaction)
     .get(mdl.checkToken, wallet.sendTransaction)
 
 router.route(config.walletUrl.getTransactions)
-    .get(mdl.checkToken, wallet.getTransactions)
+    .get(mdl.checkToken, mdl.bitcoinCliQuery, mdl.getTxs, wallet.getTransactions)
 
 
 module.exports = router

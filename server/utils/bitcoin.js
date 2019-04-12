@@ -13,6 +13,8 @@ const bs58 = require('bs58')
 const bip39 = require('bip39')
 const sha256 = require('js-sha256')
 const ripemd160 = require('ripemd160')
+const request = require('request')
+const config = require('../../config')
 
 /**
  * Generate Bitcoin private key from pseudorandom number
@@ -168,6 +170,30 @@ const prKeyToWIF = (prkey, network = 'mainnet') => {
     return bs58.encode(prkey)
 }
 
+const bitcoinCli = req => new Promise((resolve, reject) => {
+    const options = {
+        url: 'http://127.0.0.1:18332/',
+        method: 'POST',
+        headers: { 'content-type': 'text/plain;' },
+        body: req.locals.bitcoinCliQuery,
+        auth: {
+            'user': config.rpc.username,
+            'pass': config.rpc.password
+        }
+    }
+
+    request(options, (err, response, body) => {
+        if (err) return reject(err)
+
+        const result = JSON.parse(body)
+
+        if (result.error)
+            return reject(`Bitcoin node error.\n Code: ${result.error.code}\n Message: ${result.error.message}`)
+
+        resolve(result.result)
+    })
+})
+
 module.exports = {
     generatePrKey, // internal
     prKeyToMnemonic, // internal
@@ -178,4 +204,5 @@ module.exports = {
     createPublicAddress, // internal
     createAddress,
     prKeyToWIF,
+    bitcoinCli,
 }

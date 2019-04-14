@@ -170,12 +170,13 @@ const prKeyToWIF = (prkey, network = 'mainnet') => {
     return bs58.encode(prkey)
 }
 
-const bitcoinCli = req => new Promise((resolve, reject) => {
+const bitcoinCli = (req, query='bitcoinCliQuery') => new Promise((resolve, reject) => {
     const options = {
-        url: 'http://127.0.0.1:18332/',
+        // url: 'http://127.0.0.1:18332/', // testnet
+        url: 'http://127.0.0.1:18443/', // regtest
         method: 'POST',
         headers: { 'content-type': 'text/plain;' },
-        body: req.locals.bitcoinCliQuery,
+        body: req.locals[query],
         auth: {
             'user': config.rpc.username,
             'pass': config.rpc.password

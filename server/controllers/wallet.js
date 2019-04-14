@@ -10,13 +10,14 @@ const txsToBalance = ({ txs, minConfirmations, userId }) =>
         .reduce((acc, tx) => acc + tx.amount, 0)
 
 const createAddress = (req, res) => {
-    bitcoinCli(req, res)
+    bitcoinCli(req)
         .then(address => {
             res.send({
                 status: 'success',
                 address
             })
         }, err => {
+            if (err instanceof Error) err = err.message
             logger.error(err)
             res.status(500).send({
                 status: 'error',
@@ -26,7 +27,7 @@ const createAddress = (req, res) => {
 }
 
 const getBalance = (req, res) => {
-    bitcoinCli(req, res)
+    bitcoinCli(req)
         .then(txs => {
             const balance = txsToBalance({
                 txs,
@@ -38,6 +39,7 @@ const getBalance = (req, res) => {
                 balance // in BTC
             })
         }, err => {
+            if (err instanceof Error) err = err.message
             logger.error(err)
             res.status(500).send({
                 status: 'error',
@@ -47,16 +49,27 @@ const getBalance = (req, res) => {
 }
 
 const sendTransaction = (req, res) => {
-    let amount = req.headers.amount
-    if (!amount) return res.status(400).send({ status: 'error', message: 'No amount provided.' })
-
-    amount = parseFloat(amount)
-    if (isNaN(amount)) return res.status(400).send({ status: 'error', message: 'Amount should be a number.'})
-
-    res.send({
-        status: 'success',
-        amount
+    req.locals.bitcoinCliQuery = JSON.stringify({
+        id: 'sendrawtransaction',
+        method: 'sendrawtransaction',
+        params: [req.locals.signedTx.hex]
     })
+
+    bitcoinCli(req)
+        .then(txid => {
+            console.log({ txid })
+            res.send({
+                status: 'success',
+                txid
+            })
+        }, err => {
+            if (err instanceof Error) err = err.message
+            logger.error(err)
+            res.status(500).send({
+                status: 'error',
+                message: 'Internal server error.'
+            })
+        })
 }
 
 const getTransactions = (req, res) => {
@@ -64,6 +77,7 @@ const getTransactions = (req, res) => {
         res.send({
             status: 'success',
             txs: req.locals.txs.map(tx => ({
+                txid: tx.txid,
                 address: tx.address,
                 category: tx.category,
                 amount: tx.category === 'send' ? -tx.amount : tx.amount,

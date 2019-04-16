@@ -42,7 +42,8 @@ const getTransactions = (req, res) => {
                     category: tx.category,
                     amount: tx.category === 'send' ? -tx.amount : tx.amount,
                     confirmations: tx.confirmations,
-                    time: tx.time
+                    time: tx.time,
+                    ...(tx.comment !== undefined && { comment: tx.comment })
                 }))
             })
         }, err => {

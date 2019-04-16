@@ -1,6 +1,7 @@
 'use strict'
 
 const request = require('request')
+const { getBtcErrorCode } = require('../utils/bitcoin')
 const logger = require('../../logger')
 const config = require('../../config')
 
@@ -18,7 +19,7 @@ const btcQuery = ({
     method,
     params = [],
     id = method,
-    network = 'regtest',
+    network,
     walletName = ''
 }) => new Promise((resolve, reject) => {
     logger.debug(JSON.stringify({ id, method, params }))
@@ -27,7 +28,8 @@ const btcQuery = ({
         'testnet': 18332,
         'regtest': 18443
     }
-    const port = ports[network] || ports.testnet
+    const port = ports[network] ||
+        ports[config.env === 'production' ? 'testnet' : 'regtest']
     const options = {
         url: `http://${host}:${port}/wallet/${walletName}`,
         method: 'POST',
@@ -65,12 +67,7 @@ const loadWallet = userId => new Promise((resolve, reject) => {
     })
         .then(() => resolve())
         .catch(err => {
-            const temp = err.substr(
-                err.indexOf('Code: ') + 'Code: '.length)
-            const errCode = parseInt(
-                temp.substr(0, temp.indexOf('\n')))
-
-            if (errCode !== -18) return reject(err)
+            if (getBtcErrorCode(err) !== -18) return reject(err)
 
             return btcQuery({
                 method: 'createwallet',

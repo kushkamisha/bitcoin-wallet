@@ -2,7 +2,6 @@
 
 const express = require('express')
 const auth = require('../controllers/auth')
-const checkToken = require('../middleware/check-token')
 const router = express.Router()
 
 router.route('/register')
@@ -10,8 +9,5 @@ router.route('/register')
 
 router.route('/login')
     .post(auth.login)
-
-router.route('/getMyId')
-    .post(checkToken, auth.getMyId)
 
 module.exports = router

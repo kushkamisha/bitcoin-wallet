@@ -3,7 +3,7 @@
 const validate = require('bitcoin-address-validation')
 const logger = require('../../logger')
 const { btcQuery } = require('../middleware/bitcoin')
-const Breaker = require('../utils/breaker')
+const { getBtcErrorCode } = require('../utils/bitcoin')
 
 /**
  * Get balance for the user.
@@ -85,7 +85,7 @@ const sendTransaction = (req, res) => {
     let amount = req.headers.amount
     const address = req.headers.address
     const comment = req.headers.comment // optional
-    const fee = 0.0001 // hardcoded fee for TESTNET ONLY!!!
+    const fee = 0.003 // hardcoded fee for TESTNET ONLY!!!
 
     if (!amount) return res.status(400).send({
         status: 'error', message: 'No amount provided.'
@@ -103,27 +103,12 @@ const sendTransaction = (req, res) => {
         status: 'error', message: 'Invalid address.'
     })
 
-    // Check for funds sufficiency
+    // Set transaction fee
     btcQuery({
-        method: 'getbalance',
+        method: 'settxfee',
+        params: [fee],
         walletName: req.locals.UserId.toString()
     })
-        .then(balanceStr => {
-            const balance = parseInt(balanceStr)
-            if (balance < amount + fee) {
-                res.status(400).send({
-                    status: 'error', message: 'Insufficient funds.'
-                })
-                throw new Breaker('Username exists')
-            }
-
-            // Set transaction fee
-            return btcQuery({
-                method: 'settxfee',
-                params: [fee],
-                walletName: req.locals.UserId.toString()
-            })
-        })
         .then(status => {
             if (!status) throw new Error('Problem with setting up tx fee.')
             // Fee was set up successfully -> send transaction
@@ -142,6 +127,10 @@ const sendTransaction = (req, res) => {
         .catch(err => {
             if (err.name === 'Breaker') return
             if (err instanceof Error) err = err.message
+            if (getBtcErrorCode(err) === -6)
+                return res.status(400).send({
+                    status: 'error', message: 'Insufficient funds.'
+                })
             logger.error(err)
             res.status(500).send({
                 status: 'error',

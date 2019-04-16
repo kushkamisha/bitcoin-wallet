@@ -33,7 +33,8 @@ const register = (req, res) => {
             }
 
             return db.one(`insert into "Users" ("Username", "Password")
-                    values ($1, $2) returning "UserId"`, [username, hashedPassword])
+                values ($1, $2) returning "UserId"`, [username, hashedPassword]
+            )
         })
         .then(({ UserId }) => {
             // Create a token
@@ -75,21 +76,26 @@ const login = (req, res) => {
             if (!row)
                 return res.status(400).send({
                     status: 'error',
-                    message: 'No user with such username & password combination.'
+                    message:
+                        'No user with such username & password combination.'
                 })
 
-            bcrypt.compare(req.body.password, row.Password).then(function (areMatch) {
-                if (!areMatch)
-                    return res.status(400).send({
-                        status: 'error',
-                        message: 'No user with such username & password combination.'
-                    })
-                // Create a token
-                const token = jwt.sign({ UserId: row.UserId }, config.jwtSecret, {
-                    expiresIn: '24h' // expires in 24 hours
+            bcrypt.compare(req.body.password, row.Password)
+                .then(function (areMatch) {
+                    if (!areMatch)
+                        return res.status(400).send({
+                            status: 'error',
+                            message: 'No user with such username \
+                                & password combination.'
+                        })
+                    // Create a token
+                    const token = jwt.sign(
+                        { UserId: row.UserId },
+                        config.jwtSecret,
+                        { expiresIn: '24h' } // expires in 24 hours
+                    )
+                    res.send({ status: 'success', token })
                 })
-                res.send({ status: 'success', token })
-            })
         }, err => {
             logger.error(err)
             res.status(500).send({

@@ -53,7 +53,10 @@ const checkWallet = (req, res, next) => {
     btcQuery({ method: 'listwallets' })
         .then(wallets => {
             if (!wallets.includes(`${req.locals.UserId}`))
-                return btcQuery({ method: 'createwallet', params: [req.locals.UserId.toString()] })
+                return btcQuery({
+                    method: 'createwallet',
+                    params: [req.locals.UserId.toString()]
+                })
         })
         .then(() => {
             next()

@@ -4,12 +4,6 @@ const validate = require('bitcoin-address-validation')
 const logger = require('../../logger')
 const { btcQuery } = require('../middleware/bitcoin')
 
-// const txsToBalance = ({ txs, minConfirmations, userId }) => 
-//     txs
-//         .filter(tx => tx.label == userId)
-//         .filter(tx => tx.confirmations >= minConfirmations)
-//         .reduce((acc, tx) => acc + tx.amount, 0)
-
 /**
  * Get balance for the user.
  */
@@ -34,7 +28,10 @@ const getBalance = (req, res) => {
  * Get all in/out transactions of the user's wallet
  */
 const getTransactions = (req, res) => {
-    btcQuery({ method: 'listtransactions', walletName: req.locals.UserId.toString() })
+    btcQuery({
+        method: 'listtransactions',
+        walletName: req.locals.UserId.toString()
+    })
         .then(txs => {
             res.send({
                 status: 'success',
@@ -61,7 +58,10 @@ const getTransactions = (req, res) => {
  * Create address for the user.
  */
 const createAddress = (req, res) => {
-    btcQuery({ method: 'getnewaddress', walletName: req.locals.UserId.toString() })
+    btcQuery({
+        method: 'getnewaddress',
+        walletName: req.locals.UserId.toString()
+    })
         .then(address => {
             res.send({
                 status: 'success',
@@ -77,18 +77,29 @@ const createAddress = (req, res) => {
         })
 }
 
+/**
+ * Send bitcoins from the user wallet to another user.
+ */
 const sendTransaction = (req, res) => {
     let amount = req.headers.amount
     const address = req.headers.address
     const comment = req.headers.comment // optional
 
-    if (!amount) return res.status(400).send({ status: 'error', message: 'No amount provided.' })
-    if (!address) return res.status(400).send({ status: 'error', message: 'No address provided.' })
+    if (!amount) return res.status(400).send({
+        status: 'error', message: 'No amount provided.'
+    })
+    if (!address) return res.status(400).send({
+        status: 'error', message: 'No address provided.'
+    })
 
     amount = parseFloat(amount)
-    if (isNaN(amount)) return res.status(400).send({ status: 'error', message: 'Amount should be a number.' })
+    if (isNaN(amount)) return res.status(400).send({
+        status: 'error', message: 'Amount should be a number.'
+    })
 
-    if (!validate(address)) return res.status(400).send({ status: 'error', message: 'Invalid address.' })
+    if (!validate(address)) return res.status(400).send({
+        status: 'error', message: 'Invalid address.'
+    })
 
     btcQuery({
         method: 'sendtoaddress',

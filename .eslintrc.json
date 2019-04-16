@@ -6,11 +6,17 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2017,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "rules": {
         "no-console": 1,
+        "max-len": [
+            "error",
+            {
+                "code": 80
+            }
+        ],
         "indent": [
             "error",
             4,

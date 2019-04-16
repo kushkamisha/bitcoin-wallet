@@ -4,6 +4,16 @@ const request = require('request')
 const logger = require('../../logger')
 const config = require('../../config')
 
+/**
+ * Execute a query for bitcoin-cli.
+ * @param {string} method - Name of the method which should be executed.
+ * @param {Array.string} params - (optional) Array of parameters for the method.
+ * @param {string} id - (optional) Id of the query.
+ * @param {string} network - (optional) Network type. Should be either 'testnet'
+ * or 'regtest'.
+ * @param {string} walletName - (optional) Name of the wallet from which query
+ * should be executed.
+ */
 const btcQuery = ({
     method,
     params = [],
@@ -19,8 +29,6 @@ const btcQuery = ({
     }
     const port = ports[network] || ports.testnet
     const options = {
-        // url: 'http://127.0.0.1:18332/', // testnet
-        // url: 'http://127.0.0.1:18443/', // regtest
         url: `http://${host}:${port}/wallet/${walletName}`,
         method: 'POST',
         headers: { 'content-type': 'text/plain;' },
@@ -47,20 +55,43 @@ const btcQuery = ({
 })
 
 /**
- * If user don't have wallet - create one. 
+ * Try to load wallet, but if it doesn't exist - create the one for the user.
+ * @param {string} userId - User id for whom to create a wallet
+ */
+const loadWallet = userId => new Promise((resolve, reject) => {
+    btcQuery({
+        method: 'loadwallet',
+        params: [userId]
+    })
+        .then(() => resolve())
+        .catch(err => {
+            const temp = err.substr(
+                err.indexOf('Code: ') + 'Code: '.length)
+            const errCode = parseInt(
+                temp.substr(0, temp.indexOf('\n')))
+
+            if (errCode !== -18) return reject(err)
+
+            return btcQuery({
+                method: 'createwallet',
+                params: [userId]
+            })
+        })
+        .then(() => resolve())
+        .catch(err => reject(err))
+})
+
+/**
+ * If user don't have wallet - try to load it from disk. If still nothing then
+ * create one. 
  */
 const checkWallet = (req, res, next) => {
     btcQuery({ method: 'listwallets' })
         .then(wallets => {
             if (!wallets.includes(`${req.locals.UserId}`))
-                return btcQuery({
-                    method: 'createwallet',
-                    params: [req.locals.UserId.toString()]
-                })
+                return loadWallet(req.locals.UserId.toString())
         })
-        .then(() => {
-            next()
-        })
+        .then(() => next())
         .catch(err => {
             if (err instanceof Error) err = err.message
             logger.error(err)

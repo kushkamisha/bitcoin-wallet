@@ -1,16 +1,67 @@
 'use strict'
 
+const validate = require('bitcoin-address-validation')
 const logger = require('../../logger')
-const { bitcoinCli } = require('../utils/bitcoin')
+const { btcQuery } = require('../middleware/bitcoin')
 
-const txsToBalance = ({ txs, minConfirmations, userId }) => 
-    txs
-        .filter(tx => tx.label == userId)
-        .filter(tx => tx.confirmations >= minConfirmations)
-        .reduce((acc, tx) => acc + tx.amount, 0)
+// const txsToBalance = ({ txs, minConfirmations, userId }) => 
+//     txs
+//         .filter(tx => tx.label == userId)
+//         .filter(tx => tx.confirmations >= minConfirmations)
+//         .reduce((acc, tx) => acc + tx.amount, 0)
 
+/**
+ * Get balance for the user.
+ */
+const getBalance = (req, res) => {
+    btcQuery({ method: 'getbalance', walletName: req.locals.UserId.toString() })
+        .then(balance => {
+            res.send({
+                status: 'success',
+                balance // in BTC
+            })
+        }, err => {
+            if (err instanceof Error) err = err.message
+            logger.error(err)
+            res.status(500).send({
+                status: 'error',
+                message: 'Internal server error.'
+            })
+        })
+}
+
+/**
+ * Get all in/out transactions of the user's wallet
+ */
+const getTransactions = (req, res) => {
+    btcQuery({ method: 'listtransactions', walletName: req.locals.UserId.toString() })
+        .then(txs => {
+            res.send({
+                status: 'success',
+                txs: txs.map(tx => ({
+                    txid: tx.txid,
+                    address: tx.address,
+                    category: tx.category,
+                    amount: tx.category === 'send' ? -tx.amount : tx.amount,
+                    confirmations: tx.confirmations,
+                    time: tx.time
+                }))
+            })
+        }, err => {
+            if (err instanceof Error) err = err.message
+            logger.error(err)
+            res.status(500).send({
+                status: 'error',
+                message: `Can't get transactions list.`
+            })
+        })
+}
+
+/**
+ * Create address for the user.
+ */
 const createAddress = (req, res) => {
-    bitcoinCli(req)
+    btcQuery({ method: 'getnewaddress', walletName: req.locals.UserId.toString() })
         .then(address => {
             res.send({
                 status: 'success',
@@ -26,38 +77,25 @@ const createAddress = (req, res) => {
         })
 }
 
-const getBalance = (req, res) => {
-    bitcoinCli(req)
-        .then(txs => {
-            const balance = txsToBalance({
-                txs,
-                minConfirmations: 1, // min is 1 confirmation
-                userId: req.locals.UserId
-            })
-            res.send({
-                status: 'success',
-                balance // in BTC
-            })
-        }, err => {
-            if (err instanceof Error) err = err.message
-            logger.error(err)
-            res.status(500).send({
-                status: 'error',
-                message: 'Internal server error.'
-            })
-        })
-}
-
 const sendTransaction = (req, res) => {
-    req.locals.bitcoinCliQuery = JSON.stringify({
-        id: 'sendrawtransaction',
-        method: 'sendrawtransaction',
-        params: [req.locals.signedTx.hex]
-    })
+    let amount = req.headers.amount
+    const address = req.headers.address
+    const comment = req.headers.comment // optional
 
-    bitcoinCli(req)
+    if (!amount) return res.status(400).send({ status: 'error', message: 'No amount provided.' })
+    if (!address) return res.status(400).send({ status: 'error', message: 'No address provided.' })
+
+    amount = parseFloat(amount)
+    if (isNaN(amount)) return res.status(400).send({ status: 'error', message: 'Amount should be a number.' })
+
+    if (!validate(address)) return res.status(400).send({ status: 'error', message: 'Invalid address.' })
+
+    btcQuery({
+        method: 'sendtoaddress',
+        params: [address, amount, comment],
+        walletName: req.locals.UserId.toString()
+    })
         .then(txid => {
-            console.log({ txid })
             res.send({
                 status: 'success',
                 txid
@@ -72,32 +110,10 @@ const sendTransaction = (req, res) => {
         })
 }
 
-const getTransactions = (req, res) => {
-    if (req.locals.txs) {
-        res.send({
-            status: 'success',
-            txs: req.locals.txs.map(tx => ({
-                txid: tx.txid,
-                address: tx.address,
-                category: tx.category,
-                amount: tx.category === 'send' ? -tx.amount : tx.amount,
-                confirmations: tx.confirmations,
-                time: tx.time
-            }))
-        })
-    } else {
-        logger.error(`Can't get transactions list.`)
-        res.status(500).send({
-            status: 'error',
-            message: `Can't get transactions list.`
-        })
-    }
-}
-
 
 module.exports = {
-    createAddress,
     getBalance,
+    getTransactions,
+    createAddress,
     sendTransaction,
-    getTransactions
 }

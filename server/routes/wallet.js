@@ -1,29 +1,22 @@
 'use strict'
 
 const express = require('express')
-const config = require('../../config')
 const wallet = require('../controllers/wallet')
-const mdl = require('../middleware')
+const checkToken = require('../middleware/check-token')
+const { checkWallet } = require('../middleware/bitcoin')
 const router = express.Router()
 
-router.route(config.walletUrl.createAddress)
-    .get(mdl.checkToken, mdl.bitcoinCliQuery, wallet.createAddress)
+router.route('/getBalance')
+    .get(checkToken, checkWallet, wallet.getBalance)
 
-router.route(config.walletUrl.getBalance)
-    .get(mdl.checkToken, mdl.bitcoinCliQuery, wallet.getBalance)
+router.route('/getTransactions')
+    .get(checkToken, checkWallet, wallet.getTransactions)
 
-router.route(config.walletUrl.sendTransaction)
-    .get(
-        mdl.checkToken,
-        mdl.bitcoinCliQuery,
-        mdl.findAppropriateTxs,
-        mdl.createAddress,
-        mdl.processUserInput,
-        mdl.createRawTx,
-        wallet.sendTransaction)
+router.route('/createAddress')
+    .get(checkToken, checkWallet, wallet.createAddress)
 
-router.route(config.walletUrl.getTransactions)
-    .get(mdl.checkToken, mdl.bitcoinCliQuery, mdl.listUnspent, mdl.getTxs, wallet.getTransactions)
+router.route('/sendTransaction')
+    .get(checkToken, checkWallet, wallet.sendTransaction)
 
 
 module.exports = router

@@ -2,10 +2,10 @@
 
 const express = require('express')
 const { btcUsd } = require('../controllers/rates')
-const mdl = require('../middleware')
+const checkToken = require('../middleware/check-token')
 const router = express.Router()
 
 router.route('/btcusd')
-    .get(mdl.checkToken, btcUsd)
+    .get(checkToken, btcUsd)
 
 module.exports = router

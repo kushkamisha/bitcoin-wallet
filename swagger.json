@@ -1,24 +1,26 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "0.1.0",
-        "title": "Yet Another Node.js Blogg Application API",
-        "description": "Yet Another Node.js Blogg Application API",
+        "version": "1.0.0",
+        "title": "Bitcoin wallet API",
+        "description": "Just simple Bitcoin-based API for a crypto wallet.",
         "license": {
             "name": "ISC",
             "url": "https://choosealicense.com/licenses/isc/"
         }
     },
-    "host": "localhost:3000",
-    "basePath": "/api/v1",
+    "host": "176.37.12.50:8364",
+    "$schemes": ["http"],
+    "basePath": "/",
     "tags": [
         {
             "name": "Users",
             "description": "API for users in the system"
+        },
+        {
+            "name": "Auth",
+            "description": "API for users login and registration"
         }
-    ],
-    "schemes": [
-        "http"
     ],
     "consumes": [
         "application/json"
@@ -27,19 +29,20 @@
         "application/json"
     ],
     "paths": {
-        "/users": {
+        "/auth/login": {
             "post": {
                 "tags": [
-                    "Users"
+                    "Auth"
                 ],
-                "description": "Create new user in system",
+                "description": "Login to use the API",
                 "parameters": [
                     {
-                        "name": "user",
+                        "name": "Login",
                         "in": "body",
-                        "description": "User that we want to create",
+                        "required": true,
+                        "description": "Username",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Login"
                         }
                     }
                 ],
@@ -48,118 +51,126 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "New user is created",
+                        "description": "You were logged in successfully",
                         "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
-                }
-            },
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get all users in system",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/Users"
+                            "$ref": "#/definitions/Login"
                         }
                     }
                 }
             }
         },
-        "/users/{userId}": {
+        "/wallet/getBalance": {
             "parameters": [
                 {
-                    "name": "userId",
-                    "in": "path",
+                    "name": "x-access-token",
+                    "in": "header",
                     "required": true,
-                    "description": "ID of user that we want to find",
+                    "description": "Your token for the API. You can get it using /auth/login method",
                     "type": "string"
                 }
             ],
             "get": {
                 "tags": [
-                    "Users"
+                    "Wallet"
                 ],
-                "summary": "Get user with given ID",
+                "summary": "Get your Bitcoin balance",
                 "responses": {
                     "200": {
-                        "description": "User is found",
+                        "description": "Balance was get successfully",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Balance"
                         }
                     }
                 }
-            },
-            "delete": {
-                "summary": "Delete user with given ID",
-                "tags": [
-                    "Users"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User is deleted",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
+            }
+        },
+        "/wallet/getTransactions": {
+            "parameters": [
+                {
+                    "name": "x-access-token",
+                    "in": "header",
+                    "required": true,
+                    "description": "Your token for the API. You can get it using /auth/login method",
+                    "type": "string"
                 }
-            },
-            "put": {
-                "summary": "Update user with give ID",
+            ],
+            "get": {
                 "tags": [
-                    "Users"
+                    "Wallet"
                 ],
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "User with new values of properties",
-                        "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    }
+                "summary": "Get your Bitcoin transactions"
+            }
+        },
+        "/rates/btcusd": {
+            "parameters": [
+                {
+                    "name": "x-access-token",
+                    "in": "header",
+                    "required": true,
+                    "description": "Your token for the API. You can get it using /auth/login method",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Rates"
                 ],
+                "summary": "Get BTC/USD rate",
                 "responses": {
                     "200": {
-                        "description": "User is updated",
+                        "description": "Rate was received successfully",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#definitions/Rates"
                         }
+                    },
+                    "401": {
+                        "description": "Another response... (error)"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "User": {
+        "Login": {
             "required": [
-                "email",
-                "_id"
+                "username",
+                "password"
             ],
             "properties": {
-                "_id": {
+                "username": {
                     "type": "string",
                     "uniqueItems": true
                 },
-                "email": {
-                    "type": "string",
-                    "uniqueItems": true
-                },
-                "lastName": {
-                    "type": "string"
-                },
-                "firstName": {
+                "password": {
                     "type": "string"
                 }
             }
         },
-        "Users": {
-            "type": "array",
-            "$ref": "#/definitions/User"
+        "Balance": {
+            "properties": {
+                "status": {
+                    "type":"string"
+                },
+                "balance": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Rates": {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "pair": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "change24h": {
+                    "type": "string"
+                }
+            }
         }
     }
 }

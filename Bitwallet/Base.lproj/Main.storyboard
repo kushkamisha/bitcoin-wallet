@@ -13,7 +13,7 @@
         <!--Log In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LogInViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginScreen" id="BYZ-38-t0r" customClass="LogInViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,7 +38,7 @@
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <action selector="getTokenClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bn9-aW-ZVR"/>
+                                    <action selector="loginClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wpA-Ry-o0w"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -46,7 +46,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="GetToken" destination="rAX-vr-D9T" id="cde-Rn-6D1"/>
                         <outlet property="Password" destination="HYQ-0o-rCN" id="lAu-qz-SzM"/>
                         <outlet property="Username" destination="wns-MP-9Wr" id="UOT-fE-IOe"/>
                     </connections>
@@ -70,13 +69,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UdZ-U9-GdK">
-                                <rect key="frame" x="170" y="521" width="74" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALR-lW-hcQ">
+                                <rect key="frame" x="320" y="75" width="74" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <state key="normal" title="Log Out"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="Z7R-wq-duS"/>
+                                    <action selector="logout:" destination="avr-oi-MPp" eventType="touchUpInside" id="aJ4-pb-vGM"/>
                                 </connections>
                             </button>
                         </subviews>

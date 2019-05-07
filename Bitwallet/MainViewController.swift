@@ -11,17 +11,17 @@ import Alamofire
 import KeychainSwift
 
 class MainViewController: UIViewController {
-    
-    private var token = ""
-    
+
     @IBOutlet weak var UserBalance: UILabel!
+
+    private var token = ""
+    private let keychain = KeychainSwift()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Get the token from the keychain
-        let keychain = KeychainSwift()
-        token = keychain.get("x-access-token") as! String
+        token = self.keychain.get("x-access-token") as! String
         
         // Load user's balance
         loadUserBalance()
@@ -46,6 +46,15 @@ class MainViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        self.keychain.delete("x-access-token")
+
+        // Navigate to the login screen
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen")
+        self.present(newViewController, animated: true, completion: nil)
     }
 
 }

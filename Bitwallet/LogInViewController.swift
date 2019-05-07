@@ -11,7 +11,6 @@ import Alamofire
 
 class LogInViewController: UIViewController {
 
-    @IBOutlet weak var UserToken: UILabel!
     @IBOutlet weak var GetToken: UIButton!
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
@@ -28,10 +27,19 @@ class LogInViewController: UIViewController {
             switch response.result {
                 case .success(let data):
                     let dict = data as! NSDictionary
-                    let status = dict["status"] as! String
-                    let token = dict["token"] as! String
-                    self.UserToken.text = "\(token)"
-                    self.UserToken.isHidden = false
+//                    let status = dict["status"] as! String
+                    let token = dict["token"]
+                    if (token != nil) {
+                        // Navigate to the main screen
+                        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainScreen")
+                        self.present(newViewController, animated: true, completion: nil)
+                        
+                    } else {
+                        let alert = UIAlertController(title: "Oops", message: "Something went wrong. Try again.", preferredStyle: .alert)
+                        self.present(alert, animated: true)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    }
                 case .failure(let error):
                     print(error.localizedDescription)
             }

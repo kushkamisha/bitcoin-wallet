@@ -25,15 +25,6 @@
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOq-vg-eet">
-                                <rect key="frame" x="179" y="523" width="56" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <state key="normal" title="Log In"/>
-                                <connections>
-                                    <segue destination="avr-oi-MPp" kind="show" id="rGV-pH-twe"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="mkushka@protonmail.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wns-MP-9Wr">
                                 <rect key="frame" x="59" y="371" width="304" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -41,18 +32,11 @@
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="&lt;token&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKh-oX-iCR">
-                                <rect key="frame" x="20" y="727" width="374" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAX-vr-D9T">
-                                <rect key="frame" x="146" y="622" width="122" height="38"/>
+                                <rect key="frame" x="179" y="561" width="56" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <state key="normal" title="Get my token"/>
+                                <state key="normal" title="Log In"/>
                                 <connections>
                                     <action selector="getTokenClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bn9-aW-ZVR"/>
                                 </connections>
@@ -64,7 +48,6 @@
                     <connections>
                         <outlet property="GetToken" destination="rAX-vr-D9T" id="cde-Rn-6D1"/>
                         <outlet property="Password" destination="HYQ-0o-rCN" id="lAu-qz-SzM"/>
-                        <outlet property="UserToken" destination="HKh-oX-iCR" id="8CJ-BD-YZR"/>
                         <outlet property="Username" destination="wns-MP-9Wr" id="UOT-fE-IOe"/>
                     </connections>
                 </viewController>
@@ -72,10 +55,10 @@
             </objects>
             <point key="canvasLocation" x="-57.971014492753625" y="137.94642857142856"/>
         </scene>
-        <!--Log In View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="jEq-86-YYi">
             <objects>
-                <viewController id="avr-oi-MPp" customClass="LogInViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainScreen" id="avr-oi-MPp" customClass="MainViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zrT-Sp-qnY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

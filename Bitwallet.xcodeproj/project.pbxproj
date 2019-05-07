@@ -16,6 +16,7 @@
 		524191A0228168A000135FA6 /* BitwalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241919F228168A000135FA6 /* BitwalletTests.swift */; };
 		524191AB228168A000135FA6 /* BitwalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191AA228168A000135FA6 /* BitwalletUITests.swift */; };
 		524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191BC22817D8B00135FA6 /* LogInViewController.swift */; };
+		524191BF2281A4EF00135FA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191BE2281A4EF00135FA6 /* MainViewController.swift */; };
 		9EFAAC0A0B274C640AD65B9D /* Pods_BitwalletUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7F5EE12749EBFEF6B0734A /* Pods_BitwalletUITests.framework */; };
 		C338E11D364619156E63C01E /* Pods_BitwalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B7FE06B6E386DA880F92EF /* Pods_BitwalletTests.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		524191AA228168A000135FA6 /* BitwalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitwalletUITests.swift; sourceTree = "<group>"; };
 		524191AC228168A000135FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		524191BC22817D8B00135FA6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		524191BE2281A4EF00135FA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		599973E67B75A09F74B554E5 /* Pods-BitwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-BitwalletTests/Pods-BitwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A7F5EE12749EBFEF6B0734A /* Pods_BitwalletUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BitwalletUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6514169FB2BF0972CC9870EA /* Pods-Bitwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bitwallet.release.xcconfig"; path = "Target Support Files/Pods-Bitwallet/Pods-Bitwallet.release.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				52419193228168A000135FA6 /* LaunchScreen.storyboard */,
 				52419196228168A000135FA6 /* Info.plist */,
 				524191BC22817D8B00135FA6 /* LogInViewController.swift */,
+				524191BE2281A4EF00135FA6 /* MainViewController.swift */,
 			);
 			path = Bitwallet;
 			sourceTree = "<group>";
@@ -165,7 +168,6 @@
 				1AE9DBF7DDFD69295FA0E993 /* Pods-BitwalletUITests.debug.xcconfig */,
 				19033F25CC6579E8BFB73688 /* Pods-BitwalletUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -393,6 +395,7 @@
 				5241918D2281689F00135FA6 /* ViewController.swift in Sources */,
 				5241918B2281689F00135FA6 /* AppDelegate.swift in Sources */,
 				524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */,
+				524191BF2281A4EF00135FA6 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

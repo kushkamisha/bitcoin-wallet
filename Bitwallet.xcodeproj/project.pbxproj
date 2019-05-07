@@ -14,6 +14,7 @@
 		52419195228168A000135FA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52419193228168A000135FA6 /* LaunchScreen.storyboard */; };
 		524191A0228168A000135FA6 /* BitwalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241919F228168A000135FA6 /* BitwalletTests.swift */; };
 		524191AB228168A000135FA6 /* BitwalletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191AA228168A000135FA6 /* BitwalletUITests.swift */; };
+		524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191BC22817D8B00135FA6 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		524191A6228168A000135FA6 /* BitwalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BitwalletUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		524191AA228168A000135FA6 /* BitwalletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitwalletUITests.swift; sourceTree = "<group>"; };
 		524191AC228168A000135FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		524191BC22817D8B00135FA6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				52419191228168A000135FA6 /* Assets.xcassets */,
 				52419193228168A000135FA6 /* LaunchScreen.storyboard */,
 				52419196228168A000135FA6 /* Info.plist */,
+				524191BC22817D8B00135FA6 /* LogInViewController.swift */,
 			);
 			path = Bitwallet;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			files = (
 				5241918D2281689F00135FA6 /* ViewController.swift in Sources */,
 				5241918B2281689F00135FA6 /* AppDelegate.swift in Sources */,
+				524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

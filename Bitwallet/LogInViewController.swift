@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import KeychainSwift
 
 class LogInViewController: UIViewController {
 
@@ -30,6 +31,10 @@ class LogInViewController: UIViewController {
 //                    let status = dict["status"] as! String
                     let token = dict["token"]
                     if (token != nil) {
+                        // Save the token to the keychain
+                        let keychain = KeychainSwift()
+                        keychain.set(token as! String, forKey: "x-access-token")
+
                         // Navigate to the main screen
                         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                         let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainScreen")

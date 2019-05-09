@@ -13,7 +13,11 @@ import KeychainSwift
 class Transaction: UITableViewCell {
     
     @IBOutlet weak var timeLabel: UILabel!
-    
+    @IBOutlet weak var address: UILabel!
+    @IBOutlet weak var btcAmount: UILabel!
+    @IBOutlet weak var usdAmount: UILabel!
+    @IBOutlet weak var transactionDirection: UIImageView!
+
 }
 
 
@@ -21,6 +25,12 @@ class Transaction: UITableViewCell {
 class TransactionsViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    let times = ["2 minutes ago", "56 minutes ago", "1 week ago"]
+    let addresses = ["2N4hR6eczYcGS5crD4sN8pQRhKQSvEqscHz", "2MtKxR2yuRWiWnNihFEmpr71SM71enRNWif", "2MsFibA5mer6KidRbymb8Gp7bvwK9zTKSTB"]
+    let btcAmounts = [1.345, 5.0, 0.000001]
+    let usdAmounts = [9457, 345, 0.5]
+    let transactionDirections = ["in", "out", "out"]
     
     private var token = ""
     private let keychain = KeychainSwift()
@@ -31,10 +41,10 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
         self.tableView.register(UINib(nibName: "TransactionsCell", bundle: nil), forCellReuseIdentifier: "transaction")
         
         // Get the token from the keychain
-//        token = self.keychain.get("x-access-token") as! String
+        token = self.keychain.get("x-access-token") as! String
         
         // Load user's balance
-//        getUserTransactions()
+        getUserTransactions()
     }
     
     func getUserTransactions() {
@@ -64,19 +74,18 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: Transaction = self.tableView.dequeueReusableCell(withIdentifier: "transaction") as! Transaction
         
-        cell.timeLabel.text = "now"
-//        cell.timeLabel.text = "Now :)"
-//        cell.time.text = "Now"
-//        cell.addressLabel.text = "344853874653756"
-//        cell.amountLabel.text = "50 BTC"
-//        cell.directionImage
+        cell.timeLabel.text = times[indexPath.row]
+        cell.address.text = addresses[indexPath.row]
+        cell.btcAmount.text = "\(btcAmounts[indexPath.row]) BTC"
+        cell.usdAmount.text = "$\(usdAmounts[indexPath.row])"
+        cell.transactionDirection.image = UIImage(named: transactionDirections[indexPath.row])
         
         return cell
     }

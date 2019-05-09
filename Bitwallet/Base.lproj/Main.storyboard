@@ -55,7 +55,7 @@
             </objects>
             <point key="canvasLocation" x="-57.971014492753625" y="137.94642857142856"/>
         </scene>
-        <!--Main-->
+        <!--Wallet-->
         <scene sceneID="jEq-86-YYi">
             <objects>
                 <viewController storyboardIdentifier="MainScreen" id="avr-oi-MPp" customClass="MainViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
@@ -154,6 +154,9 @@
                                                         <state key="normal" title="Transactions">
                                                             <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
+                                                        <connections>
+                                                            <segue destination="rgY-Rw-bbp" kind="show" id="uHm-Ks-fkP"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -207,7 +210,7 @@
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="h19-E4-qUv"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Main" id="pxg-7M-ACq"/>
+                    <navigationItem key="navigationItem" title="Wallet" id="pxg-7M-ACq"/>
                     <connections>
                         <outlet property="UserBalance" destination="T88-gR-6RJ" id="3q1-xm-DcY"/>
                     </connections>
@@ -216,15 +219,15 @@
             </objects>
             <point key="canvasLocation" x="703" y="138"/>
         </scene>
-        <!--View Controller-->
+        <!--Receive View Controller-->
         <scene sceneID="cmy-Lb-s1D">
             <objects>
-                <viewController id="e0w-IQ-Trg" sceneMemberID="viewController">
+                <viewController id="e0w-IQ-Trg" customClass="ReceiveViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d1p-bc-N94">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Your btc address" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-h4-RtD">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Loading....." borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-h4-RtD">
                                 <rect key="frame" x="20" y="371" width="374" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
@@ -235,10 +238,50 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sWF-mr-Rcg"/>
                     </view>
+                    <connections>
+                        <outlet property="UserAddress" destination="wkw-h4-RtD" id="hsm-Q7-SC8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k7d-Gy-AxP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1472.4637681159422" y="137.94642857142856"/>
+        </scene>
+        <!--Transactions View Controller-->
+        <scene sceneID="lob-fG-IG9">
+            <objects>
+                <viewController id="rgY-Rw-bbp" customClass="TransactionsViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="foV-3P-ftx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bKF-z7-dOF">
+                                <rect key="frame" x="20" y="88" width="374" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cvk-jF-Vsy">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cvk-jF-Vsy" id="3hd-UY-DBy">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bKF-z7-dOF" firstAttribute="bottom" secondItem="Gbp-0F-lAQ" secondAttribute="bottom" id="Y33-py-ia8"/>
+                            <constraint firstItem="Gbp-0F-lAQ" firstAttribute="trailing" secondItem="bKF-z7-dOF" secondAttribute="trailing" constant="20" id="nyM-HI-ZYA"/>
+                            <constraint firstItem="bKF-z7-dOF" firstAttribute="top" secondItem="Gbp-0F-lAQ" secondAttribute="top" id="uLA-fI-acL"/>
+                            <constraint firstItem="bKF-z7-dOF" firstAttribute="leading" secondItem="Gbp-0F-lAQ" secondAttribute="leading" constant="20" id="zoc-C1-IIE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Gbp-0F-lAQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h8r-9x-Zwv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="702.89855072463774" y="909.375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FRY-w1-5kJ">

@@ -1,5 +1,5 @@
 //
-//  ReceiveViewController.swift
+//  TransactionsViewController.swift
 //  Bitwallet
 //
 //  Created by Kushka Misha on 5/9/19.
@@ -10,13 +10,11 @@ import UIKit
 import Alamofire
 import KeychainSwift
 
-class ReceiveViewController: UIViewController {
-    
-    @IBOutlet weak var UserAddress: UITextField!
-    
+class TransactionsViewController: UIViewController {
+
     private var token = ""
     private let keychain = KeychainSwift()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,19 +22,24 @@ class ReceiveViewController: UIViewController {
         token = self.keychain.get("x-access-token") as! String
         
         // Load user's balance
-        getUserAddress()
+        getUserTransactions()
     }
     
-    func getUserAddress() {
-        AF.request("http://176.37.12.50:8364/wallet/createAddress", headers: ["x-access-token": token]).responseJSON { response in
+    func getUserTransactions() {
+        AF.request("http://176.37.12.50:8364/wallet/getTransactions", headers: ["x-access-token": token]).responseJSON { response in
             switch response.result {
             case .success(let data):
+//                print("\(data)")
                 let dict = data as! NSDictionary
                 let status = dict["status"] as! String
                 if (status == "success") {
-                    // Set user balance label
-                    let address = dict["address"] as! String
-                    self.UserAddress.text = address
+                    // Show all transactions
+                    let txs = dict["txs"] as! NSArray
+                    for tx in (txs as! [NSDictionary]) {
+                        print(tx["address"])
+                    }
+                    
+                    
                 } else {
                     let alert = UIAlertController(title: "Oops", message: "Something went wrong. Try again.", preferredStyle: .alert)
                     self.present(alert, animated: true)

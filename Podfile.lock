@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.0.0-beta.6)
+  - KeychainSwift (15.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.0.0-beta.6)
+  - KeychainSwift (~> 15.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - KeychainSwift
+
+SPEC CHECKSUMS:
+  Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
+  KeychainSwift: c6fc018d287804faf1ce3f258a1e51a7178c8382
+
+PODFILE CHECKSUM: c0ad33ff0b288c659dfc52d0cba5409fb0225b01
+
+COCOAPODS: 1.7.0.rc.1

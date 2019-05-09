@@ -1,0 +1,6 @@
+framework module Pods_BitwalletUITests {
+  umbrella header "Pods-BitwalletUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -38,7 +38,8 @@ class LogInViewController: UIViewController {
 
                         // Navigate to the main screen
                         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                        let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainScreen")
+//                        let newViewController = storyBoard.instantiateViewController(withIdentifier: "MainScreen")
+                        let newViewController = storyBoard.instantiateViewController(withIdentifier: "NavigationScreen")
                         self.present(newViewController, animated: true, completion: nil)
                         
                     } else {

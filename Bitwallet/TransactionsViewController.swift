@@ -10,19 +10,31 @@ import UIKit
 import Alamofire
 import KeychainSwift
 
-class TransactionsViewController: UIViewController {
+class Transaction: UITableViewCell {
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
+}
 
+
+
+class TransactionsViewController: UIViewController, UITableViewDataSource {
+
+    @IBOutlet weak var tableView: UITableView!
+    
     private var token = ""
     private let keychain = KeychainSwift()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.register(UINib(nibName: "TransactionsCell", bundle: nil), forCellReuseIdentifier: "transaction")
+        
         // Get the token from the keychain
-        token = self.keychain.get("x-access-token") as! String
+//        token = self.keychain.get("x-access-token") as! String
         
         // Load user's balance
-        getUserTransactions()
+//        getUserTransactions()
     }
     
     func getUserTransactions() {
@@ -49,6 +61,24 @@ class TransactionsViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell: Transaction = self.tableView.dequeueReusableCell(withIdentifier: "transaction") as! Transaction
+        
+        cell.timeLabel.text = "now"
+//        cell.timeLabel.text = "Now :)"
+//        cell.time.text = "Now"
+//        cell.addressLabel.text = "344853874653756"
+//        cell.amountLabel.text = "50 BTC"
+//        cell.directionImage
+        
+        return cell
     }
 
 }

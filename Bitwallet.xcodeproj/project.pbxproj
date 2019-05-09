@@ -18,6 +18,7 @@
 		524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191BC22817D8B00135FA6 /* LogInViewController.swift */; };
 		524191BF2281A4EF00135FA6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524191BE2281A4EF00135FA6 /* MainViewController.swift */; };
 		528362BE22845EA400C15B9C /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528362BD22845EA400C15B9C /* TransactionsViewController.swift */; };
+		528362C42284804900C15B9C /* TransactionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528362C32284804900C15B9C /* TransactionsCell.xib */; };
 		52E907E222842D3600398FF6 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E907E122842D3600398FF6 /* CollectionViewCell.swift */; };
 		52E907E422844F7C00398FF6 /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E907E322844F7C00398FF6 /* ReceiveViewController.swift */; };
 		9EFAAC0A0B274C640AD65B9D /* Pods_BitwalletUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7F5EE12749EBFEF6B0734A /* Pods_BitwalletUITests.framework */; };
@@ -63,6 +64,7 @@
 		524191BC22817D8B00135FA6 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		524191BE2281A4EF00135FA6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		528362BD22845EA400C15B9C /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
+		528362C32284804900C15B9C /* TransactionsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionsCell.xib; sourceTree = "<group>"; };
 		52E907E122842D3600398FF6 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		52E907E322844F7C00398FF6 /* ReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
 		599973E67B75A09F74B554E5 /* Pods-BitwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-BitwalletTests/Pods-BitwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				5241918A2281689F00135FA6 /* AppDelegate.swift */,
 				5241918C2281689F00135FA6 /* ViewController.swift */,
+				528362C32284804900C15B9C /* TransactionsCell.xib */,
 				5241918E2281689F00135FA6 /* Main.storyboard */,
 				528362BD22845EA400C15B9C /* TransactionsViewController.swift */,
 				52E907E122842D3600398FF6 /* CollectionViewCell.swift */,
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52419195228168A000135FA6 /* LaunchScreen.storyboard in Resources */,
+				528362C42284804900C15B9C /* TransactionsCell.xib in Resources */,
 				52419192228168A000135FA6 /* Assets.xcassets in Resources */,
 				524191902281689F00135FA6 /* Main.storyboard in Resources */,
 			);

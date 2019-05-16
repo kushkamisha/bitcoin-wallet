@@ -7,6 +7,9 @@ target 'Bitwallet' do
 
   pod 'Alamofire', '~> 5.0.0-beta.6'
   pod 'KeychainSwift', '~> 15.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
 
   target 'BitwalletTests' do
     inherit! :search_paths

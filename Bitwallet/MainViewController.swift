@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import KeychainSwift
+import Firebase
 
 class MainViewController: UIViewController {
 
@@ -19,6 +20,12 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Firebase custom event
+        Analytics.logEvent("visit_screen", parameters: [
+            "name": "Main Screen" as NSObject,
+            "full_text": "A user have visited the Main screen" as NSObject
+            ])
 
         // Get the token from the keychain
         token = self.keychain.get("x-access-token") as! String

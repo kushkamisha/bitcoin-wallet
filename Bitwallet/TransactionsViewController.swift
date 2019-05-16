@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import KeychainSwift
+import Firebase
 
 class Transaction: UITableViewCell {
     
@@ -37,6 +38,12 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Firebase custom event
+        Analytics.logEvent("visit_screen", parameters: [
+            "name": "Transaction's Screen" as NSObject,
+            "full_text": "A user have visited the Transaction's screen" as NSObject
+            ])
         
         self.tableView.register(UINib(nibName: "TransactionsCell", bundle: nil), forCellReuseIdentifier: "transaction")
         

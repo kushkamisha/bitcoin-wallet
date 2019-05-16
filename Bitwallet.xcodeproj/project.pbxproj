@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5087A80CD2CF874A42EFB332 /* Pods_Bitwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19180AC5EC8C1530F5373876 /* Pods_Bitwallet.framework */; };
+		52090308228D3E4B004999BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52090307228D3E4B004999BD /* GoogleService-Info.plist */; };
+		5209030A228D45A0004999BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52090309228D45A0004999BD /* SignUpViewController.swift */; };
+		5209030D228D654E004999BD /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209030C228D654E004999BD /* Firebase.swift */; };
 		5241918B2281689F00135FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241918A2281689F00135FA6 /* AppDelegate.swift */; };
 		5241918D2281689F00135FA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241918C2281689F00135FA6 /* ViewController.swift */; };
 		524191902281689F00135FA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5241918E2281689F00135FA6 /* Main.storyboard */; };
@@ -48,6 +51,9 @@
 		1AE9DBF7DDFD69295FA0E993 /* Pods-BitwalletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletUITests.debug.xcconfig"; path = "Target Support Files/Pods-BitwalletUITests/Pods-BitwalletUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2269F16F18E28263B259AEDC /* Pods-Bitwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bitwallet.debug.xcconfig"; path = "Target Support Files/Pods-Bitwallet/Pods-Bitwallet.debug.xcconfig"; sourceTree = "<group>"; };
 		40B7FE06B6E386DA880F92EF /* Pods_BitwalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BitwalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52090307228D3E4B004999BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		52090309228D45A0004999BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		5209030C228D654E004999BD /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		524191872281689F00135FA6 /* Bitwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bitwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5241918A2281689F00135FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5241918C2281689F00135FA6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +107,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5209030B228D653B004999BD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5209030C228D654E004999BD /* Firebase.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5241917E2281689F00135FA6 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +140,8 @@
 		524191892281689F00135FA6 /* Bitwallet */ = {
 			isa = PBXGroup;
 			children = (
+				5209030B228D653B004999BD /* Extensions */,
+				52090307228D3E4B004999BD /* GoogleService-Info.plist */,
 				5241918A2281689F00135FA6 /* AppDelegate.swift */,
 				5241918C2281689F00135FA6 /* ViewController.swift */,
 				528362C32284804900C15B9C /* TransactionsCell.xib */,
@@ -138,6 +154,7 @@
 				524191BC22817D8B00135FA6 /* LogInViewController.swift */,
 				524191BE2281A4EF00135FA6 /* MainViewController.swift */,
 				52E907E322844F7C00398FF6 /* ReceiveViewController.swift */,
+				52090309228D45A0004999BD /* SignUpViewController.swift */,
 			);
 			path = Bitwallet;
 			sourceTree = "<group>";
@@ -293,6 +310,7 @@
 			files = (
 				52419195228168A000135FA6 /* LaunchScreen.storyboard in Resources */,
 				528362C42284804900C15B9C /* TransactionsCell.xib in Resources */,
+				52090308228D3E4B004999BD /* GoogleService-Info.plist in Resources */,
 				52419192228168A000135FA6 /* Assets.xcassets in Resources */,
 				524191902281689F00135FA6 /* Main.storyboard in Resources */,
 			);
@@ -407,9 +425,11 @@
 			files = (
 				528362BE22845EA400C15B9C /* TransactionsViewController.swift in Sources */,
 				52E907E222842D3600398FF6 /* CollectionViewCell.swift in Sources */,
+				5209030A228D45A0004999BD /* SignUpViewController.swift in Sources */,
 				5241918D2281689F00135FA6 /* ViewController.swift in Sources */,
 				5241918B2281689F00135FA6 /* AppDelegate.swift in Sources */,
 				524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */,
+				5209030D228D654E004999BD /* Firebase.swift in Sources */,
 				52E907E422844F7C00398FF6 /* ReceiveViewController.swift in Sources */,
 				524191BF2281A4EF00135FA6 /* MainViewController.swift in Sources */,
 			);

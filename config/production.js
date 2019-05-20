@@ -14,6 +14,5 @@ module.exports = {
         password: process.env.PGPASSWORD,
         port: process.env.PGPORT,
     },
-    jwtSecret: process.env.JWT_SECRET,
-    encryptionKey: process.env.ENCRYPTION_KEY
+    apiKey: process.env.API_KEY
 }

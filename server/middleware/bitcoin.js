@@ -85,8 +85,8 @@ const loadWallet = userId => new Promise((resolve, reject) => {
 const checkWallet = (req, res, next) => {
     btcQuery({ method: 'listwallets' })
         .then(wallets => {
-            if (!wallets.includes(`${req.locals.UserId}`))
-                return loadWallet(req.locals.UserId.toString())
+            if (!wallets.includes(`${req.headers['user-id']}`))
+                return loadWallet(req.headers['user-id'].toString())
         })
         .then(() => next())
         .catch(err => {

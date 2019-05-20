@@ -6,7 +6,6 @@ const swaggerUi = require('swagger-ui-express')
 
 const swaggerDocument = require('./swagger.json')
 const walletRoutes = require('./server/routes/wallet')
-const authRoutes = require('./server/routes/auth')
 const ratesRoutes = require('./server/routes/rates')
 const app = express()
 
@@ -14,7 +13,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-app.use('/auth', authRoutes)
 app.use('/wallet', walletRoutes)
 app.use('/rates', ratesRoutes)
 

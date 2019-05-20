@@ -9,7 +9,10 @@ const { getBtcErrorCode } = require('../utils/bitcoin')
  * Get balance for the user.
  */
 const getBalance = (req, res) => {
-    btcQuery({ method: 'getbalance', walletName: req.locals.UserId.toString() })
+    btcQuery({
+        method: 'getbalance',
+        walletName: req.headers['user-id'].toString()
+    })
         .then(balance => {
             res.send({
                 status: 'success',
@@ -31,7 +34,7 @@ const getBalance = (req, res) => {
 const getTransactions = (req, res) => {
     btcQuery({
         method: 'listtransactions',
-        walletName: req.locals.UserId.toString()
+        walletName: req.headers['user-id'].toString()
     })
         .then(txs => {
             res.send({
@@ -62,7 +65,7 @@ const getTransactions = (req, res) => {
 const createAddress = (req, res) => {
     btcQuery({
         method: 'getnewaddress',
-        walletName: req.locals.UserId.toString()
+        walletName: req.headers['user-id'].toString()
     })
         .then(address => {
             res.send({
@@ -108,7 +111,7 @@ const sendTransaction = (req, res) => {
     btcQuery({
         method: 'settxfee',
         params: [fee],
-        walletName: req.locals.UserId.toString()
+        walletName: req.headers['user-id'].toString()
     })
         .then(status => {
             if (!status) throw new Error('Problem with setting up tx fee.')
@@ -116,7 +119,7 @@ const sendTransaction = (req, res) => {
             return btcQuery({
                 method: 'sendtoaddress',
                 params: [address, amount, comment],
-                walletName: req.locals.UserId.toString()
+                walletName: req.headers['user-id'].toString()
             })
         })
         .then(txid => {

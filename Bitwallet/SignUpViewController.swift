@@ -26,6 +26,12 @@ class SignUpViewController: UIViewController {
             ])
     }
     
+    func goToLoginScreenHandler(alert: UIAlertAction!) {
+        // Navigate to the main screen
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "NavigationScreen")
+        self.present(newViewController, animated: true, completion: nil)
+    }
     
     @IBAction func SignUpClicked(_ sender: Any) {
         let email = Email.text!
@@ -38,7 +44,21 @@ class SignUpViewController: UIViewController {
                     self.handleError(error!)
                     return
                 }
-                print("Auth: \(authResult)")
+                
+                if authResult != nil {
+                    // Successfully signed up
+                    let alert = UIAlertController(title: "Success", message: "You've signed up. Now you can log in.", preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: self.goToLoginScreenHandler))
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                } else {
+                    // Unknown error
+                    let alert = UIAlertController(title: "Oops", message: "Unknown error. Try again.", preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                }
+                guard let userId = Auth.auth().currentUser?.uid else { return }
+                print("User's UID: \(userId)")
             }
         } else {
             // Show error message

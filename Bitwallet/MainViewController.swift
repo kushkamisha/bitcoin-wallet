@@ -8,15 +8,15 @@
 
 import UIKit
 import Alamofire
-import KeychainSwift
 import Firebase
+import FirebaseAuth
 
 class MainViewController: UIViewController {
 
     @IBOutlet weak var UserBalance: UILabel!
 
-    private var token = ""
-    private let keychain = KeychainSwift()
+    private let userId = Auth.auth().currentUser?.uid
+    private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +27,18 @@ class MainViewController: UIViewController {
             "full_text": "A user have visited the Main screen" as NSObject
             ])
 
-        // Get the token from the keychain
-        token = self.keychain.get("x-access-token") as! String
+        // Get a user's id from Firebase
         
         // Load user's balance
         loadUserBalance()
     }
     
     func loadUserBalance() {
-        AF.request("http://176.37.12.50:8364/wallet/getbalance", headers: ["x-access-token": token]).responseJSON { response in
+        var headers = HTTPHeaders.default
+        headers["x-api-key"] = apiKey
+        headers["user-id"] = userId
+
+        AF.request("http://127.0.0.1:8364/wallet/getbalance", headers: headers).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let dict = data as! NSDictionary
@@ -56,8 +59,6 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
-        self.keychain.delete("x-access-token")
-
         // Navigate to the login screen
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen")

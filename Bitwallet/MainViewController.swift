@@ -105,18 +105,24 @@ class MainViewController: UIViewController {
     func calcUsdBalance() {
         if (self.btcBalanceCompletionFlag && self.btcRatesCompletionFlag) {
             self.UserUsdBalance.text = "$\(round(self.btcRates * self.btcBalance * 1e2) / 1e2)"
-            print("usd balance is refreshed")
+            self.refreshButton.layer.removeAllAnimations()
         }
+    }
+    
+    func rotateButtonAnimation(imageView: UIButton, speed: Double) { //CABasicAnimation
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotationAnimation.fromValue = 0.0
+        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+        rotationAnimation.duration = speed
+        rotationAnimation.repeatCount = .infinity
+        imageView.layer.add(rotationAnimation, forKey: nil)
     }
     
     @IBAction func refreshData(_ sender: Any) {
         // Animate the refresh button
-        UIView.animate(withDuration: 0.25, animations: {
-            self.refreshButton.transform = self.refreshButton.transform.rotated(by: CGFloat.pi)
-        })
+        self.rotateButtonAnimation(imageView: self.refreshButton, speed: 0.5)
         
         // Reset function flags
-        print("refreshing...")
         self.btcBalanceCompletionFlag = false
         self.btcRatesCompletionFlag = false
 

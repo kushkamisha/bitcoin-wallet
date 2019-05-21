@@ -37,6 +37,7 @@ const getTransactions = (req, res) => {
         walletName: req.headers['user-id'].toString()
     })
         .then(txs => {
+            txs = txs.reverse()
             res.send({
                 status: 'success',
                 txs: txs.map(tx => ({

@@ -157,29 +157,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALR-lW-hcQ">
-                                <rect key="frame" x="320" y="125" width="74" height="38"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <state key="normal" title="Log Out"/>
-                                <connections>
-                                    <action selector="logout:" destination="avr-oi-MPp" eventType="touchUpInside" id="aJ4-pb-vGM"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1BTC = $0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBc-ke-azp">
-                                <rect key="frame" x="20" y="435" width="374" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="gc4-Pa-5to"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftl-gS-k9E">
-                                <rect key="frame" x="20" y="283" width="374" height="32.5"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="center" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BBy-Qd-wB2">
                                 <rect key="frame" x="35" y="530" width="344" height="308"/>
                                 <subviews>
@@ -317,6 +294,43 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALR-lW-hcQ">
+                                <rect key="frame" x="35" y="104" width="74" height="38"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logout:" destination="avr-oi-MPp" eventType="touchUpInside" id="aJ4-pb-vGM"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1BTC = $0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBc-ke-azp">
+                                <rect key="frame" x="20" y="434.5" width="374" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="gc4-Pa-5to"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftl-gS-k9E">
+                                <rect key="frame" x="20" y="283" width="374" height="32.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fv4-yG-2l7">
+                                <rect key="frame" x="352" y="123" width="27" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="E6I-FT-GcA"/>
+                                    <constraint firstAttribute="width" constant="27" id="rT9-gW-j2e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <state key="normal" title="Refresh" image="refresh">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshData:" destination="avr-oi-MPp" eventType="touchUpInside" id="PUe-Qv-6nA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -326,17 +340,19 @@
                             <constraint firstItem="ALR-lW-hcQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h19-E4-qUv" secondAttribute="leading" symbolic="YES" id="4Rk-wd-CSN"/>
                             <constraint firstItem="T88-gR-6RJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sBc-ke-azp" secondAttribute="leading" id="4nS-MA-b5x"/>
                             <constraint firstItem="h19-E4-qUv" firstAttribute="trailing" secondItem="sBc-ke-azp" secondAttribute="trailing" constant="20" id="FJs-7U-U4U"/>
-                            <constraint firstItem="T88-gR-6RJ" firstAttribute="trailing" secondItem="ALR-lW-hcQ" secondAttribute="trailing" id="QBt-9Z-gCc"/>
-                            <constraint firstItem="ALR-lW-hcQ" firstAttribute="top" secondItem="h19-E4-qUv" secondAttribute="top" constant="37" id="QSt-H9-ctl"/>
-                            <constraint firstItem="T88-gR-6RJ" firstAttribute="top" secondItem="ALR-lW-hcQ" secondAttribute="bottom" constant="60" id="aan-k7-aaw"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="trailing" secondItem="ALR-lW-hcQ" secondAttribute="trailing" constant="285" id="QBt-9Z-gCc"/>
+                            <constraint firstItem="ALR-lW-hcQ" firstAttribute="top" secondItem="h19-E4-qUv" secondAttribute="top" constant="16" id="QSt-H9-ctl"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="top" secondItem="ALR-lW-hcQ" secondAttribute="bottom" constant="81" id="aan-k7-aaw"/>
                             <constraint firstItem="h19-E4-qUv" firstAttribute="trailing" secondItem="BBy-Qd-wB2" secondAttribute="trailing" constant="35" id="cZh-lx-MHV"/>
-                            <constraint firstItem="ALR-lW-hcQ" firstAttribute="trailing" secondItem="zrT-Sp-qnY" secondAttribute="trailingMargin" id="gpt-Sn-V9g"/>
+                            <constraint firstItem="ALR-lW-hcQ" firstAttribute="trailing" secondItem="zrT-Sp-qnY" secondAttribute="trailingMargin" constant="-285" id="gpt-Sn-V9g"/>
                             <constraint firstItem="BBy-Qd-wB2" firstAttribute="leading" secondItem="zrT-Sp-qnY" secondAttribute="leadingMargin" constant="15" id="i4s-tu-1gk"/>
                             <constraint firstItem="sBc-ke-azp" firstAttribute="top" secondItem="ftl-gS-k9E" secondAttribute="bottom" constant="119" id="jdk-Ek-c4Y"/>
                             <constraint firstItem="ftl-gS-k9E" firstAttribute="top" secondItem="T88-gR-6RJ" secondAttribute="bottom" constant="8" symbolic="YES" id="lg2-fZ-ule"/>
                             <constraint firstItem="h19-E4-qUv" firstAttribute="bottom" secondItem="BBy-Qd-wB2" secondAttribute="bottom" constant="24" id="r0b-Fe-8QT"/>
                             <constraint firstItem="T88-gR-6RJ" firstAttribute="trailing" secondItem="ftl-gS-k9E" secondAttribute="trailing" id="s7D-YT-qFN"/>
+                            <constraint firstItem="h19-E4-qUv" firstAttribute="trailing" secondItem="fv4-yG-2l7" secondAttribute="trailing" constant="35" id="yRP-it-9lE"/>
                             <constraint firstItem="BBy-Qd-wB2" firstAttribute="top" secondItem="zrT-Sp-qnY" secondAttribute="top" constant="530" id="ydh-AR-nUq"/>
+                            <constraint firstItem="fv4-yG-2l7" firstAttribute="top" secondItem="h19-E4-qUv" secondAttribute="top" constant="35" id="zVg-c4-cJs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h19-E4-qUv"/>
                     </view>
@@ -345,6 +361,7 @@
                         <outlet property="BtcRates" destination="sBc-ke-azp" id="JeA-T1-0rp"/>
                         <outlet property="UserBalance" destination="T88-gR-6RJ" id="3q1-xm-DcY"/>
                         <outlet property="UserUsdBalance" destination="ftl-gS-k9E" id="QJT-kA-sWu"/>
+                        <outlet property="refreshButton" destination="fv4-yG-2l7" id="i5H-Bw-v1w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Bp-qr-0mK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -435,5 +452,6 @@
         <image name="Send" width="33" height="30"/>
         <image name="Settings" width="34" height="34"/>
         <image name="Transactions" width="30" height="30"/>
+        <image name="refresh" width="512" height="512"/>
     </resources>
 </document>

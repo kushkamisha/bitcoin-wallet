@@ -26,16 +26,23 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var times : Array<String> = []
-    var addresses : Array<String> = []
+    var txids : Array<String> = []
     var btcAmounts : Array<NSNumber> = []
     var usdAmounts : Array<NSNumber> = []
     var transactionDirections : Array<String> = []
     
     private let userId = Auth.auth().currentUser?.uid
     private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
+    private var refresher : UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Pull from top to refresh the txs list
+        refresher = UIRefreshControl()
+//        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.addTarget(self, action: #selector(TransactionsViewController.updateTable), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refresher)
         
         // Firebase custom event
         Analytics.logEvent("visit_screen", parameters: [
@@ -50,6 +57,13 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
     }
     
     func getUserTransactions() {
+        // Clear all txs arrays
+        times = []
+        txids = []
+        btcAmounts = []
+        usdAmounts = []
+        transactionDirections = []
+
         var headers = HTTPHeaders.default
         headers["x-api-key"] = apiKey
         headers["user-id"] = userId
@@ -68,7 +82,7 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
                         self.btcAmounts.append(tx["amount"]! as? NSNumber ?? 0)
                         self.usdAmounts.append(tx["amount"]! as? NSNumber ?? 0)
                         self.transactionDirections.append(tx["category"]! as! String == "receive" ? "in" : "out")
-                        self.addresses.append(tx["address"]! as! String)
+                        self.txids.append((tx["confirmations"]! as? NSNumber ?? 0).intValue > 0 ? tx["txid"]! as! String : "pending...")
                     }
                     
                     self.tableView.reloadData()
@@ -93,12 +107,17 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
         let cell: Transaction = self.tableView.dequeueReusableCell(withIdentifier: "transaction") as! Transaction
         
         cell.timeLabel.text = times[indexPath.row]
-        cell.address.text = addresses[indexPath.row]
+        cell.address.text = txids[indexPath.row]
         cell.btcAmount.text = "\(btcAmounts[indexPath.row]) BTC"
         cell.usdAmount.text = "$\(usdAmounts[indexPath.row])"
         cell.transactionDirection.image = UIImage(named: transactionDirections[indexPath.row])
         
         return cell
+    }
+    
+    @objc func updateTable() {
+        getUserTransactions()
+        self.refresher.endRefreshing()
     }
 
 }

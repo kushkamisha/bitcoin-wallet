@@ -39,8 +39,8 @@
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJ6-Vz-jGJ">
-                                <rect key="frame" x="170.5" y="532" width="73" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJ6-Vz-jGJ">
+                                <rect key="frame" x="57" y="532" width="300" height="38"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
@@ -52,13 +52,15 @@
                         <constraints>
                             <constraint firstItem="uap-J5-Usv" firstAttribute="top" secondItem="iJz-cs-b8E" secondAttribute="bottom" constant="8" symbolic="YES" id="Az8-2X-a6X"/>
                             <constraint firstItem="iJz-cs-b8E" firstAttribute="centerY" secondItem="v4u-Eg-t70" secondAttribute="centerY" id="CKg-GF-Xx8"/>
+                            <constraint firstItem="iJ6-Vz-jGJ" firstAttribute="leading" secondItem="O3R-CO-H2B" secondAttribute="leading" constant="57" id="DUj-vA-5MF"/>
                             <constraint firstItem="Uga-Kl-Iv1" firstAttribute="centerX" secondItem="iJ6-Vz-jGJ" secondAttribute="centerX" id="Evm-UW-wck"/>
                             <constraint firstItem="O3R-CO-H2B" firstAttribute="trailing" secondItem="uap-J5-Usv" secondAttribute="trailing" constant="57" id="Qim-y2-e6Q"/>
                             <constraint firstItem="Uga-Kl-Iv1" firstAttribute="top" secondItem="O3R-CO-H2B" secondAttribute="top" constant="329" id="TMA-b6-8SK"/>
-                            <constraint firstItem="Uga-Kl-Iv1" firstAttribute="leading" secondItem="iJz-cs-b8E" secondAttribute="leading" id="ZFp-eV-bCg"/>
+                            <constraint firstItem="Uga-Kl-Iv1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iJz-cs-b8E" secondAttribute="leading" id="ZFp-eV-bCg"/>
                             <constraint firstItem="iJ6-Vz-jGJ" firstAttribute="centerX" secondItem="v4u-Eg-t70" secondAttribute="centerX" id="Zg6-PV-uio"/>
-                            <constraint firstItem="Uga-Kl-Iv1" firstAttribute="trailing" secondItem="iJz-cs-b8E" secondAttribute="trailing" id="bNa-gy-oBi"/>
+                            <constraint firstItem="Uga-Kl-Iv1" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="iJz-cs-b8E" secondAttribute="trailing" id="bNa-gy-oBi"/>
                             <constraint firstItem="uap-J5-Usv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O3R-CO-H2B" secondAttribute="leading" id="d21-L1-pyR"/>
+                            <constraint firstItem="iJ6-Vz-jGJ" firstAttribute="top" secondItem="iJz-cs-b8E" secondAttribute="bottom" constant="69" id="o5k-Jm-JPg"/>
                             <constraint firstItem="iJz-cs-b8E" firstAttribute="trailing" secondItem="uap-J5-Usv" secondAttribute="trailing" id="vkI-WV-cz8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O3R-CO-H2B"/>
@@ -150,13 +152,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 BTC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T88-gR-6RJ">
-                                <rect key="frame" x="135" y="223" width="144" height="52"/>
+                                <rect key="frame" x="20" y="223" width="374" height="52"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALR-lW-hcQ">
+                                <rect key="frame" x="320" y="125" width="74" height="38"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logout:" destination="avr-oi-MPp" eventType="touchUpInside" id="aJ4-pb-vGM"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1BTC = $0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBc-ke-azp">
+                                <rect key="frame" x="20" y="435" width="374" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="gc4-Pa-5to"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftl-gS-k9E">
+                                <rect key="frame" x="20" y="283" width="374" height="32.5"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="center" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BBy-Qd-wB2">
-                                <rect key="frame" x="20" y="528" width="344" height="308"/>
+                                <rect key="frame" x="35" y="530" width="344" height="308"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="bDo-n5-Ddf">
                                         <rect key="frame" x="0.0" y="0.0" width="344" height="150"/>
@@ -292,33 +317,34 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALR-lW-hcQ">
-                                <rect key="frame" x="320" y="125" width="74" height="38"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <state key="normal" title="Log Out"/>
-                                <connections>
-                                    <action selector="logout:" destination="avr-oi-MPp" eventType="touchUpInside" id="aJ4-pb-vGM"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="leading" secondItem="ftl-gS-k9E" secondAttribute="leading" id="0BY-Qn-kQr"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="leading" secondItem="BBy-Qd-wB2" secondAttribute="leading" constant="-15" id="1OY-fw-NDF"/>
                             <constraint firstItem="ALR-lW-hcQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="h19-E4-qUv" secondAttribute="leading" symbolic="YES" id="4Rk-wd-CSN"/>
-                            <constraint firstItem="T88-gR-6RJ" firstAttribute="top" secondItem="h19-E4-qUv" secondAttribute="top" constant="135" id="DMh-dl-XW8"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sBc-ke-azp" secondAttribute="leading" id="4nS-MA-b5x"/>
+                            <constraint firstItem="h19-E4-qUv" firstAttribute="trailing" secondItem="sBc-ke-azp" secondAttribute="trailing" constant="20" id="FJs-7U-U4U"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="trailing" secondItem="ALR-lW-hcQ" secondAttribute="trailing" id="QBt-9Z-gCc"/>
                             <constraint firstItem="ALR-lW-hcQ" firstAttribute="top" secondItem="h19-E4-qUv" secondAttribute="top" constant="37" id="QSt-H9-ctl"/>
-                            <constraint firstItem="h19-E4-qUv" firstAttribute="trailing" secondItem="BBy-Qd-wB2" secondAttribute="trailing" constant="50" id="cZh-lx-MHV"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="top" secondItem="ALR-lW-hcQ" secondAttribute="bottom" constant="60" id="aan-k7-aaw"/>
+                            <constraint firstItem="h19-E4-qUv" firstAttribute="trailing" secondItem="BBy-Qd-wB2" secondAttribute="trailing" constant="35" id="cZh-lx-MHV"/>
                             <constraint firstItem="ALR-lW-hcQ" firstAttribute="trailing" secondItem="zrT-Sp-qnY" secondAttribute="trailingMargin" id="gpt-Sn-V9g"/>
-                            <constraint firstItem="BBy-Qd-wB2" firstAttribute="leading" secondItem="zrT-Sp-qnY" secondAttribute="leadingMargin" id="i4s-tu-1gk"/>
-                            <constraint firstItem="T88-gR-6RJ" firstAttribute="centerX" secondItem="zrT-Sp-qnY" secondAttribute="centerX" id="mqS-gZ-fW7"/>
-                            <constraint firstItem="h19-E4-qUv" firstAttribute="bottom" secondItem="BBy-Qd-wB2" secondAttribute="bottom" constant="26" id="r0b-Fe-8QT"/>
-                            <constraint firstItem="BBy-Qd-wB2" firstAttribute="top" secondItem="zrT-Sp-qnY" secondAttribute="top" constant="528" id="ydh-AR-nUq"/>
+                            <constraint firstItem="BBy-Qd-wB2" firstAttribute="leading" secondItem="zrT-Sp-qnY" secondAttribute="leadingMargin" constant="15" id="i4s-tu-1gk"/>
+                            <constraint firstItem="sBc-ke-azp" firstAttribute="top" secondItem="ftl-gS-k9E" secondAttribute="bottom" constant="119" id="jdk-Ek-c4Y"/>
+                            <constraint firstItem="ftl-gS-k9E" firstAttribute="top" secondItem="T88-gR-6RJ" secondAttribute="bottom" constant="8" symbolic="YES" id="lg2-fZ-ule"/>
+                            <constraint firstItem="h19-E4-qUv" firstAttribute="bottom" secondItem="BBy-Qd-wB2" secondAttribute="bottom" constant="24" id="r0b-Fe-8QT"/>
+                            <constraint firstItem="T88-gR-6RJ" firstAttribute="trailing" secondItem="ftl-gS-k9E" secondAttribute="trailing" id="s7D-YT-qFN"/>
+                            <constraint firstItem="BBy-Qd-wB2" firstAttribute="top" secondItem="zrT-Sp-qnY" secondAttribute="top" constant="530" id="ydh-AR-nUq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h19-E4-qUv"/>
                     </view>
                     <navigationItem key="navigationItem" title="Wallet" id="pxg-7M-ACq"/>
                     <connections>
+                        <outlet property="BtcRates" destination="sBc-ke-azp" id="JeA-T1-0rp"/>
                         <outlet property="UserBalance" destination="T88-gR-6RJ" id="3q1-xm-DcY"/>
+                        <outlet property="UserUsdBalance" destination="ftl-gS-k9E" id="QJT-kA-sWu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Bp-qr-0mK" userLabel="First Responder" sceneMemberID="firstResponder"/>

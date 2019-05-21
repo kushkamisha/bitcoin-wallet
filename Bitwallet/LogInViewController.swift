@@ -46,8 +46,8 @@ class LogInViewController: UIViewController {
                     self.present(alert, animated: true)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 }
-                guard let userId = Auth.auth().currentUser?.uid else { return }
-                print("User's UID: \(userId)")
+//                guard let userId = Auth.auth().currentUser?.uid else { return }
+//                print("User's UID: \(userId)")
             }
         } else {
             // Show error message

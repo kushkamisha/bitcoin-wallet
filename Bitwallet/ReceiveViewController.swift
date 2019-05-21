@@ -8,27 +8,29 @@
 
 import UIKit
 import Alamofire
-import KeychainSwift
+import Firebase
+import FirebaseAuth
 
 class ReceiveViewController: UIViewController {
     
     @IBOutlet weak var UserAddress: UITextField!
     
-    private var token = ""
-    private let keychain = KeychainSwift()
+    private let userId = Auth.auth().currentUser?.uid
+    private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Get the token from the keychain
-        token = self.keychain.get("x-access-token") as! String
         
         // Load user's balance
         getUserAddress()
     }
     
     func getUserAddress() {
-        AF.request("http://176.37.12.50:8364/wallet/createAddress", headers: ["x-access-token": token]).responseJSON { response in
+        var headers = HTTPHeaders.default
+        headers["x-api-key"] = apiKey
+        headers["user-id"] = userId
+        
+        AF.request("http://127.0.0.1:8364/wallet/createAddress", headers: headers).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let dict = data as! NSDictionary

@@ -14,6 +14,7 @@ import FirebaseAuth
 class ReceiveViewController: UIViewController {
     
     @IBOutlet weak var UserAddress: UITextField!
+    @IBOutlet weak var QRCode: UIImageView!
     
     private let userId = Auth.auth().currentUser?.uid
     private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
@@ -39,6 +40,7 @@ class ReceiveViewController: UIViewController {
                     // Set user balance label
                     let address = dict["address"] as! String
                     self.UserAddress.text = address
+                    self.QRCode.image = self.generateQRCode(from: "bitcoin:\(address)")
                 } else {
                     let alert = UIAlertController(title: "Oops", message: "Something went wrong. Try again.", preferredStyle: .alert)
                     self.present(alert, animated: true)
@@ -48,6 +50,29 @@ class ReceiveViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: String.Encoding.ascii)
+        
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        filter.setValue(data, forKey: "inputMessage")
+        
+        // Scale the image
+        let transform = CGAffineTransform(scaleX: 10, y: 10)
+        guard let scaledQrImage = filter.outputImage?.transformed(by: transform) else { return nil }
+        
+        // Invert the colors
+        guard let colorInvertFilter = CIFilter(name: "CIColorInvert") else { return nil }
+        colorInvertFilter.setValue(scaledQrImage, forKey: "inputImage")
+        guard let outputInvertedImage = colorInvertFilter.outputImage else { return nil }
+        
+        // Replace the black with transparency
+        guard let maskToAlphaFilter = CIFilter(name: "CIMaskToAlpha") else { return nil }
+        maskToAlphaFilter.setValue(outputInvertedImage, forKey: "inputImage")
+        guard let outputCIImage = maskToAlphaFilter.outputImage else { return nil }
+        
+        return UIImage(ciImage: outputCIImage)
     }
 
 }

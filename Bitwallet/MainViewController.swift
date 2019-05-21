@@ -11,6 +11,8 @@ import Alamofire
 import Firebase
 import FirebaseAuth
 
+public var btcRatesGlobal : Double = 0.1
+
 class MainViewController: UIViewController {
 
     @IBOutlet weak var UserBalance: UILabel!
@@ -22,7 +24,6 @@ class MainViewController: UIViewController {
     private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
     private var headers = HTTPHeaders.default
     private var btcBalance : Double = 0.0
-    private var btcRates : Double = 0.0
     private var btcBalanceCompletionFlag : Bool = false
     private var btcRatesCompletionFlag : Bool = false
 
@@ -88,7 +89,7 @@ class MainViewController: UIViewController {
                     let change = dict["change24h"] as! Double
                     
                     self.BtcRates.text = "1 BTC = $\(price)"
-                    self.btcRates = price
+                    btcRatesGlobal = price
 
                     onCompleted()
                 } else {
@@ -104,7 +105,7 @@ class MainViewController: UIViewController {
     
     func calcUsdBalance() {
         if (self.btcBalanceCompletionFlag && self.btcRatesCompletionFlag) {
-            self.UserUsdBalance.text = "$\(round(self.btcRates * self.btcBalance * 1e2) / 1e2)"
+            self.UserUsdBalance.text = "$\(round(btcRatesGlobal * self.btcBalance * 1e2) / 1e2)"
             self.refreshButton.layer.removeAllAnimations()
         }
     }

@@ -27,8 +27,8 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
     
     var times : Array<String> = []
     var txids : Array<String> = []
-    var btcAmounts : Array<NSNumber> = []
-    var usdAmounts : Array<NSNumber> = []
+    var btcAmounts : Array<Double> = []
+    var usdAmounts : Array<Double> = []
     var transactionDirections : Array<String> = []
     
     private let userId = Auth.auth().currentUser?.uid
@@ -79,8 +79,8 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
                     let txs = dict["txs"] as! NSArray
                     for tx in (txs as! [NSDictionary]) {
                         self.times.append(String(tx["time"]! as! Int64))
-                        self.btcAmounts.append(tx["amount"]! as? NSNumber ?? 0)
-                        self.usdAmounts.append(tx["amount"]! as? NSNumber ?? 0)
+                        self.btcAmounts.append(tx["amount"] as! Double)
+                        self.usdAmounts.append(round((tx["amount"] as! Double) * btcRatesGlobal * 1e2) / 1e2)
                         self.transactionDirections.append(tx["category"]! as! String == "receive" ? "in" : "out")
                         self.txids.append((tx["confirmations"]! as? NSNumber ?? 0).intValue > 0 ? tx["txid"]! as! String : "pending...")
                     }

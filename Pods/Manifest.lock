@@ -58,11 +58,13 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
   - KeychainSwift (15.0.0)
+  - Loaf (0.4.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SwiftLint (0.32.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.6)
@@ -70,6 +72,8 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - KeychainSwift (~> 15.0)
+  - Loaf
+  - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -84,7 +88,9 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - KeychainSwift
+    - Loaf
     - nanopb
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
@@ -98,8 +104,10 @@ SPEC CHECKSUMS:
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   KeychainSwift: c6fc018d287804faf1ce3f258a1e51a7178c8382
+  Loaf: 070a55b75527d541e710f69c0c7642ead3676a96
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
-PODFILE CHECKSUM: 3234995053b12efbca8090e5039319465b0e9f3d
+PODFILE CHECKSUM: a079cd7fa98ada53a7d4c3b83746b79ccc12c9ca
 
 COCOAPODS: 1.7.0.rc.1

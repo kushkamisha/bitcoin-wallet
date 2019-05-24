@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Loaf
 import Alamofire
 import Firebase
 import FirebaseAuth
@@ -15,12 +16,26 @@ class ReceiveViewController: UIViewController {
     
     @IBOutlet weak var UserAddress: UITextField!
     @IBOutlet weak var QRCode: UIImageView!
+    @IBOutlet weak var copyButton: UIButton!
     
     private let userId = Auth.auth().currentUser?.uid
     private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
+    
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        setNeedsStatusBarAppearanceUpdate()
+        
+        // Some design with the address field and the copy button
+        copyButton.round(corners: [.topRight, .bottomRight], radius: 5)
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.UserAddress.frame.height))
+        UserAddress.leftView = paddingView
+        UserAddress.rightView = paddingView
+        UserAddress.leftViewMode = UITextField.ViewMode.always
         
         // Load user's balance
         getUserAddress()
@@ -73,6 +88,11 @@ class ReceiveViewController: UIViewController {
         guard let outputCIImage = maskToAlphaFilter.outputImage else { return nil }
         
         return UIImage(ciImage: outputCIImage)
+    }
+    
+    @IBAction func copyClicked(_ sender: Any) {
+        Loaf("Your address is copied to the clipboard", state: .success, sender: self).show()
+        UIPasteboard.general.string = UserAddress.text
     }
 
 }

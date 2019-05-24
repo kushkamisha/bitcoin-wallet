@@ -323,6 +323,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4uf-hN-zNd">
+                                <rect key="frame" x="111" y="464" width="193" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5I-Fw-ec5">
+                                        <rect key="frame" x="99" y="4" width="94" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="in" translatesAutoresizingMaskIntoConstraints="NO" id="Son-Yv-AtZ">
+                                        <rect key="frame" x="71" y="4" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.transform.rotation.z">
+                                                <real key="value" value="3.1419999999999999"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -357,7 +380,7 @@
             </objects>
             <point key="canvasLocation" x="702.89855072463774" y="137.94642857142856"/>
         </scene>
-        <!--Receive View Controller-->
+        <!--Receive-->
         <scene sceneID="cmy-Lb-s1D">
             <objects>
                 <viewController id="e0w-IQ-Trg" customClass="ReceiveViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
@@ -372,27 +395,52 @@
                                     <constraint firstAttribute="height" constant="374" id="vfh-aZ-dqN"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Loading....." borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-h4-RtD">
-                                <rect key="frame" x="20" y="540" width="374" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="aum-kP-U1K">
+                                <rect key="frame" x="20" y="540" width="374" height="70"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Loading....." borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wkw-h4-RtD">
+                                        <rect key="frame" x="0.0" y="0.0" width="279" height="70"/>
+                                        <color key="backgroundColor" red="0.1176470588" green="0.1215686275" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.56862745098039214" green="0.58039215686274503" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZTe-mv-z6r">
+                                        <rect key="frame" x="274" y="0.0" width="100" height="70"/>
+                                        <color key="backgroundColor" red="0.1176470588" green="0.1215686275" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="2oV-Lz-17a"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <state key="normal" title="COPY">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="copyClicked:" destination="e0w-IQ-Trg" eventType="touchUpInside" id="7GC-Kl-j5a"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="y8e-CD-bDg"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.16078431372549018" green="0.17254901960784313" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="aum-kP-U1K" firstAttribute="leading" secondItem="sWF-mr-Rcg" secondAttribute="leading" constant="20" id="29F-o2-eu1"/>
                             <constraint firstItem="sWF-mr-Rcg" firstAttribute="trailing" secondItem="iLn-pv-1oh" secondAttribute="trailing" constant="20" id="Apn-cm-52y"/>
-                            <constraint firstItem="wkw-h4-RtD" firstAttribute="top" secondItem="iLn-pv-1oh" secondAttribute="bottom" constant="58" id="Le1-08-AmB"/>
+                            <constraint firstItem="aum-kP-U1K" firstAttribute="top" secondItem="iLn-pv-1oh" secondAttribute="bottom" constant="58" id="GDC-C7-zAp"/>
+                            <constraint firstItem="sWF-mr-Rcg" firstAttribute="trailing" secondItem="aum-kP-U1K" secondAttribute="trailing" constant="20" id="Vxf-LT-IA3"/>
                             <constraint firstItem="iLn-pv-1oh" firstAttribute="leading" secondItem="sWF-mr-Rcg" secondAttribute="leading" constant="20" id="YvW-zy-sFi"/>
                             <constraint firstItem="iLn-pv-1oh" firstAttribute="top" secondItem="sWF-mr-Rcg" secondAttribute="top" constant="20" id="b8b-Ps-lSm"/>
-                            <constraint firstItem="wkw-h4-RtD" firstAttribute="leading" secondItem="sWF-mr-Rcg" secondAttribute="leading" constant="20" id="hkg-zv-ajc"/>
-                            <constraint firstItem="sWF-mr-Rcg" firstAttribute="trailing" secondItem="wkw-h4-RtD" secondAttribute="trailing" constant="20" id="rQ7-QG-Oah"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="sWF-mr-Rcg"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Receive" largeTitleDisplayMode="never" id="0ex-Ql-JyL"/>
                     <connections>
                         <outlet property="QRCode" destination="iLn-pv-1oh" id="NF7-Aw-a3h"/>
                         <outlet property="UserAddress" destination="wkw-h4-RtD" id="hsm-Q7-SC8"/>
+                        <outlet property="copyButton" destination="ZTe-mv-z6r" id="EQH-Fb-SiR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k7d-Gy-AxP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -516,6 +564,15 @@ Security
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UTM-jl-LlP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1215686275" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -533,6 +590,7 @@ Security
         <image name="Send" width="33" height="30"/>
         <image name="Settings" width="34" height="34"/>
         <image name="Transactions" width="30" height="30"/>
+        <image name="in" width="50" height="50"/>
         <image name="refresh" width="512" height="512"/>
     </resources>
 </document>

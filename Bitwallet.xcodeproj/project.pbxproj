@@ -11,6 +11,7 @@
 		52090308228D3E4B004999BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52090307228D3E4B004999BD /* GoogleService-Info.plist */; };
 		5209030A228D45A0004999BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52090309228D45A0004999BD /* SignUpViewController.swift */; };
 		5209030D228D654E004999BD /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209030C228D654E004999BD /* Firebase.swift */; };
+		5229D486229875510077E821 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5229D485229875510077E821 /* Design.swift */; };
 		5241918B2281689F00135FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241918A2281689F00135FA6 /* AppDelegate.swift */; };
 		5241918D2281689F00135FA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241918C2281689F00135FA6 /* ViewController.swift */; };
 		524191902281689F00135FA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5241918E2281689F00135FA6 /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		52090307228D3E4B004999BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52090309228D45A0004999BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5209030C228D654E004999BD /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		5229D485229875510077E821 /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
 		524191872281689F00135FA6 /* Bitwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bitwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5241918A2281689F00135FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5241918C2281689F00135FA6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				5209030C228D654E004999BD /* Firebase.swift */,
+				5229D485229875510077E821 /* Design.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				524191842281689F00135FA6 /* Frameworks */,
 				524191852281689F00135FA6 /* Resources */,
 				26EB107B42E36381D6BBEAB3 /* [CP] Embed Pods Frameworks */,
+				5269155E22968A180044FDF2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -372,6 +376,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		5269155E22968A180044FDF2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B3B28BE50F02D0CF87788CDE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -432,6 +454,7 @@
 				5209030D228D654E004999BD /* Firebase.swift in Sources */,
 				52E907E422844F7C00398FF6 /* ReceiveViewController.swift in Sources */,
 				524191BF2281A4EF00135FA6 /* MainViewController.swift in Sources */,
+				5229D486229875510077E821 /* Design.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

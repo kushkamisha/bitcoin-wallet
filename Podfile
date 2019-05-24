@@ -10,6 +10,8 @@ target 'Bitwallet' do
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'SwiftLint'
+  pod 'Loaf'
 
   target 'BitwalletTests' do
     inherit! :search_paths

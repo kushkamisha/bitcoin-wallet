@@ -91,7 +91,7 @@ class ReceiveViewController: UIViewController {
     }
     
     @IBAction func copyClicked(_ sender: Any) {
-        Loaf("Your address is copied to the clipboard", state: .success, sender: self).show()
+        Loaf("Copied to the clipboard", state: .success, sender: self).show()
         UIPasteboard.general.string = UserAddress.text
     }
 

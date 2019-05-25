@@ -19,6 +19,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var UserUsdBalance: UILabel!
     @IBOutlet weak var BtcRates: UILabel!
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var change24hArrow: UIImageView!
+    @IBOutlet weak var change24hText: UILabel!
     
     private let userId = Auth.auth().currentUser?.uid
     private let apiKey = "b4tXEhQaUmYyAUBMf0SMSoFzcVkXZ64JnCprKWc8iZyv8KiX8kNuQsoB"
@@ -86,7 +88,15 @@ class MainViewController: UIViewController {
                     // Set BTC rates label
                     var price = dict["price"] as! Double
                     price = round(price * 1e2) / 1e2
-                    let change = dict["change24h"] as! Double
+                    var change = dict["change24h"] as! Double
+                    change = round(change * 1e4) / 1e2
+                    if (change >= 0) {
+                        self.change24hText.text = "\(change)%"
+                        self.change24hArrow.image = UIImage(named: "in")
+                    } else {
+                        self.change24hText.text = "\(-change)%"
+                        self.change24hArrow.image = UIImage(named: "out")
+                    }
                     
                     self.BtcRates.text = "1 BTC = $\(price)"
                     btcRatesGlobal = price

@@ -25,7 +25,8 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var times : Array<String> = []
+    var time : Array<Int> = []
+    var timeString: Array<String> = []
     var txids : Array<String> = []
     var btcAmounts : Array<Double> = []
     var usdAmounts : Array<Double> = []
@@ -56,9 +57,46 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
         getUserTransactions()
     }
     
+    func unixTimeToText(time : Array<Int>) -> Array<String> {
+        var stringTime : Array<String> = []
+        let currentTime = Int(NSDate().timeIntervalSince1970)
+        let (minute, hour, day, week, month, year) = (60, 3600, 86400, 604800, 2419200, 943488000)
+        
+        for t in time {
+            let diff = currentTime - t
+            switch(diff) {
+            case 0...minute - 1:
+                stringTime.append("just now")
+            case minute...hour - 1:
+                let minutes = Int(diff / minute)
+                stringTime.append("\(minutes) minutes ago")
+            case hour...day - 1:
+                let hours = Int(diff / hour)
+                stringTime.append("\(hours) hours ago")
+            case day...week - 1:
+                let days = Int(diff / day)
+                stringTime.append("\(days) days ago")
+            case week...month - 1:
+                let weeks = Int(diff / week)
+                stringTime.append("\(weeks) weeks ago")
+            case month...year - 1:
+                let months = Int(diff / month)
+                stringTime.append("\(months) months ago")
+            case year...50*year:
+                let years = Int(diff / year)
+                stringTime.append("\(years) years ago")
+            default:
+                stringTime.append("a long time ago")
+            }
+        }
+        
+        return stringTime
+    }
+    
     func getUserTransactions() {
         // Clear all txs arrays
-        times = []
+        time = []
+        timeString = []
         txids = []
         btcAmounts = []
         usdAmounts = []
@@ -78,13 +116,14 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
                     // Show all transactions
                     let txs = dict["txs"] as! NSArray
                     for tx in (txs as! [NSDictionary]) {
-                        self.times.append(String(tx["time"]! as! Int64))
+                        self.time.append(tx["time"]! as! Int)
                         self.btcAmounts.append(tx["amount"] as! Double)
                         self.usdAmounts.append(round((tx["amount"] as! Double) * btcRatesGlobal * 1e2) / 1e2)
                         self.transactionDirections.append(tx["category"]! as! String == "receive" ? "in" : "out")
                         self.txids.append((tx["confirmations"]! as? NSNumber ?? 0).intValue > 0 ? tx["txid"]! as! String : "pending...")
                     }
                     
+                    self.timeString = self.unixTimeToText(time: self.time)
                     self.tableView.reloadData()
                     
                 } else {
@@ -99,14 +138,14 @@ class TransactionsViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return times.count
+        return time.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: Transaction = self.tableView.dequeueReusableCell(withIdentifier: "transaction") as! Transaction
         
-        cell.timeLabel.text = times[indexPath.row]
+        cell.timeLabel.text = timeString[indexPath.row]
         cell.address.text = txids[indexPath.row]
         cell.btcAmount.text = "\(btcAmounts[indexPath.row]) BTC"
         cell.usdAmount.text = "$\(usdAmounts[indexPath.row])"

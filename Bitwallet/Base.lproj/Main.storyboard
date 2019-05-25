@@ -373,6 +373,8 @@
                         <outlet property="BtcRates" destination="sBc-ke-azp" id="JeA-T1-0rp"/>
                         <outlet property="UserBalance" destination="T88-gR-6RJ" id="3q1-xm-DcY"/>
                         <outlet property="UserUsdBalance" destination="ftl-gS-k9E" id="QJT-kA-sWu"/>
+                        <outlet property="change24hArrow" destination="Son-Yv-AtZ" id="YoW-qu-Ony"/>
+                        <outlet property="change24hText" destination="d5I-Fw-ec5" id="g0I-NE-QmP"/>
                         <outlet property="refreshButton" destination="fv4-yG-2l7" id="i5H-Bw-v1w"/>
                     </connections>
                 </viewController>
@@ -447,7 +449,7 @@
             </objects>
             <point key="canvasLocation" x="1472.4637681159422" y="137.94642857142856"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings-->
         <scene sceneID="PxL-U5-1gV">
             <objects>
                 <viewController id="mCe-dV-2hL" sceneMemberID="viewController">
@@ -486,17 +488,17 @@ Security
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXW-Lf-5zs">
+                                <rect key="frame" x="94" y="409" width="226" height="38"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <state key="normal" title="Export mnemonic phrase"/>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet's name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vj-lT-vRp">
                                 <rect key="frame" x="20" y="211" width="96" height="20"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXW-Lf-5zs">
-                                <rect key="frame" x="94" y="409" width="226" height="38"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                <state key="normal" title="Export mnemonic phrase"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -504,26 +506,26 @@ Security
                             <constraint firstItem="tgT-SD-Hti" firstAttribute="top" secondItem="lMG-VU-rew" secondAttribute="top" constant="85" id="5Cb-az-qqH"/>
                             <constraint firstItem="lMG-VU-rew" firstAttribute="trailing" secondItem="ALR-lW-hcQ" secondAttribute="trailing" constant="170" id="JwT-6r-c1I"/>
                             <constraint firstItem="lMG-VU-rew" firstAttribute="trailing" secondItem="DXW-Lf-5zs" secondAttribute="trailing" constant="94" id="Lzw-fc-PHE"/>
-                            <constraint firstItem="lMG-VU-rew" firstAttribute="trailing" secondItem="4vj-lT-vRp" secondAttribute="trailing" constant="298" id="MmQ-cS-mEX"/>
                             <constraint firstItem="lMG-VU-rew" firstAttribute="trailing" secondItem="tgT-SD-Hti" secondAttribute="trailing" constant="20" id="MpA-fx-42S"/>
                             <constraint firstItem="ALR-lW-hcQ" firstAttribute="top" secondItem="tgT-SD-Hti" secondAttribute="bottom" constant="160" id="TzO-N7-Tzw"/>
                             <constraint firstItem="lMG-VU-rew" firstAttribute="trailing" secondItem="eFT-PY-544" secondAttribute="trailing" constant="106" id="Wsm-BA-hTK"/>
                             <constraint firstItem="lMG-VU-rew" firstAttribute="bottom" secondItem="eFT-PY-544" secondAttribute="bottom" constant="50" id="Ypj-F7-Bo8"/>
-                            <constraint firstItem="4vj-lT-vRp" firstAttribute="top" secondItem="tgT-SD-Hti" secondAttribute="bottom" constant="8" id="Yyk-hi-Mwx"/>
                             <constraint firstItem="ALR-lW-hcQ" firstAttribute="leading" secondItem="lMG-VU-rew" secondAttribute="leading" constant="170" id="ena-6y-938"/>
+                            <constraint firstItem="4vj-lT-vRp" firstAttribute="leading" secondItem="lMG-VU-rew" secondAttribute="leading" constant="20" id="fQg-2w-FaL"/>
                             <constraint firstItem="DXW-Lf-5zs" firstAttribute="top" secondItem="ALR-lW-hcQ" secondAttribute="bottom" constant="8" id="hFP-ml-3QV"/>
                             <constraint firstItem="tgT-SD-Hti" firstAttribute="leading" secondItem="lMG-VU-rew" secondAttribute="leading" constant="20" id="iXo-Ab-e6y"/>
-                            <constraint firstItem="4vj-lT-vRp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lMG-VU-rew" secondAttribute="leading" id="nkN-NI-9Ku"/>
                             <constraint firstItem="eFT-PY-544" firstAttribute="leading" secondItem="lMG-VU-rew" secondAttribute="leading" constant="106" id="ud7-lG-JYc"/>
+                            <constraint firstItem="4vj-lT-vRp" firstAttribute="top" secondItem="tgT-SD-Hti" secondAttribute="bottom" constant="8" id="x8z-5R-CJG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lMG-VU-rew"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Settings" id="ifk-B8-4RQ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVD-xA-RgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-59.420289855072468" y="908.70535714285711"/>
         </scene>
-        <!--Transactions View Controller-->
+        <!--Transactions-->
         <scene sceneID="lob-fG-IG9">
             <objects>
                 <viewController id="rgY-Rw-bbp" customClass="TransactionsViewController" customModule="Bitwallet" customModuleProvider="target" sceneMemberID="viewController">
@@ -548,6 +550,7 @@ Security
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Gbp-0F-lAQ"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Transactions" id="ih1-7c-wZP"/>
                     <connections>
                         <outlet property="tableView" destination="bKF-z7-dOF" id="jZs-ha-HEr"/>
                     </connections>

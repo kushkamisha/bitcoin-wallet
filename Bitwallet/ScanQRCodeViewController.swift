@@ -8,12 +8,12 @@
 
 import UIKit
 import AVFoundation
+import Loaf
 
 class ScanQRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    
-    var qrCodeString : String = ""
+    var instance: SendViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,10 @@ class ScanQRCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
         captureSession.startRunning()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     func failed() {
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
@@ -81,25 +85,56 @@ class ScanQRCodeViewController: UIViewController, AVCaptureMetadataOutputObjects
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
-        
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
-        
-        // Navigate to the send screen
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "SendScreen")
-        self.present(newViewController, animated: true, completion: nil)
-//        dismiss(animated: true)
     }
     
     func found(code: String) {
-        self.qrCodeString = code
-        print(code)
+        // Stop the capture session only if QR code has the right format
+        if code.starts(with: "bitcoin:") {
+            captureSession.stopRunning()
+            
+            self.parseData(code: code)
+
+            // Navigate to the send screen
+            _ = navigationController?.popViewController(animated: true)
+        } else {
+            Loaf("The QR code has incorrect format", state: .warning, sender: self).show()
+        }
+    }
+    
+    func parseData(code: String) {
+        // Pass the data to the send screen
+        
+        // Get rid of "bitcoin:" at the beginning
+        let start = code.index(code.startIndex, offsetBy: 8)
+        let end = code.index(code.endIndex, offsetBy: 0)
+        let btcString = String(code[start..<end])
+        
+        // 2
+        let chunks = btcString.split(separator: "?")
+        for chunk in chunks {
+            if chunk.starts(with: "amount=") {
+                let start = chunk.index(chunk.startIndex, offsetBy: 7)
+                let end = chunk.index(chunk.endIndex, offsetBy: 0)
+                let amount = chunk[start..<end]
+                instance?.btcAmount.text = "\(amount)"
+                print("Amount: \(amount)")
+                
+            } else {
+                print("BTC address: \(chunk)")
+                instance?.btcAddress.text = "\(chunk)"
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let sb = segue.destination as! SendViewController
+        sb.btcAddress.text = ":)"
     }
     
     override var prefersStatusBarHidden: Bool {

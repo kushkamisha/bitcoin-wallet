@@ -605,15 +605,33 @@ Security
                                     <segue destination="39f-QG-baW" kind="show" id="Yb8-Wg-Ywo"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7kB-Mx-bwq">
+                                <rect key="frame" x="20" y="531" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cK1-Yg-Z3g">
+                                <rect key="frame" x="20" y="600" width="374" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="U2j-Ub-qIg"/>
                     </view>
                     <navigationItem key="navigationItem" title="Send" id="abM-QM-yzc"/>
+                    <connections>
+                        <outlet property="btcAddress" destination="7kB-Mx-bwq" id="o9A-Rt-pKQ"/>
+                        <outlet property="btcAmount" destination="cK1-Yg-Z3g" id="Wrn-BS-6fM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Thu-MW-Quz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1472" y="909"/>
+            <point key="canvasLocation" x="1471.0144927536232" y="908.70535714285711"/>
         </scene>
         <!--ScanQR Code View Controller-->
         <scene sceneID="izI-sZ-6Cr">

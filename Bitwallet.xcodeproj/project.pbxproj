@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5087A80CD2CF874A42EFB332 /* Pods_Bitwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19180AC5EC8C1530F5373876 /* Pods_Bitwallet.framework */; };
+		5204F0622299C622003B34D3 /* SendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204F0612299C622003B34D3 /* SendViewController.swift */; };
 		52090308228D3E4B004999BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52090307228D3E4B004999BD /* GoogleService-Info.plist */; };
 		5209030A228D45A0004999BD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52090309228D45A0004999BD /* SignUpViewController.swift */; };
 		5209030D228D654E004999BD /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5209030C228D654E004999BD /* Firebase.swift */; };
+		5220AECF229A5E9E00D0988D /* ScanQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5220AECE229A5E9E00D0988D /* ScanQRCodeViewController.swift */; };
 		5229D486229875510077E821 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5229D485229875510077E821 /* Design.swift */; };
 		5241918B2281689F00135FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241918A2281689F00135FA6 /* AppDelegate.swift */; };
 		5241918D2281689F00135FA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5241918C2281689F00135FA6 /* ViewController.swift */; };
@@ -25,7 +27,6 @@
 		528362C42284804900C15B9C /* TransactionsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528362C32284804900C15B9C /* TransactionsCell.xib */; };
 		52E907E222842D3600398FF6 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E907E122842D3600398FF6 /* CollectionViewCell.swift */; };
 		52E907E422844F7C00398FF6 /* ReceiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E907E322844F7C00398FF6 /* ReceiveViewController.swift */; };
-		9EFAAC0A0B274C640AD65B9D /* Pods_BitwalletUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7F5EE12749EBFEF6B0734A /* Pods_BitwalletUITests.framework */; };
 		C338E11D364619156E63C01E /* Pods_BitwalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B7FE06B6E386DA880F92EF /* Pods_BitwalletTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,14 +48,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		19033F25CC6579E8BFB73688 /* Pods-BitwalletUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletUITests.release.xcconfig"; path = "Target Support Files/Pods-BitwalletUITests/Pods-BitwalletUITests.release.xcconfig"; sourceTree = "<group>"; };
 		19180AC5EC8C1530F5373876 /* Pods_Bitwallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bitwallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1AE9DBF7DDFD69295FA0E993 /* Pods-BitwalletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletUITests.debug.xcconfig"; path = "Target Support Files/Pods-BitwalletUITests/Pods-BitwalletUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2269F16F18E28263B259AEDC /* Pods-Bitwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bitwallet.debug.xcconfig"; path = "Target Support Files/Pods-Bitwallet/Pods-Bitwallet.debug.xcconfig"; sourceTree = "<group>"; };
 		40B7FE06B6E386DA880F92EF /* Pods_BitwalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BitwalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5204F0612299C622003B34D3 /* SendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendViewController.swift; sourceTree = "<group>"; };
 		52090307228D3E4B004999BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52090309228D45A0004999BD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5209030C228D654E004999BD /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		5220AECE229A5E9E00D0988D /* ScanQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeViewController.swift; sourceTree = "<group>"; };
 		5229D485229875510077E821 /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
 		524191872281689F00135FA6 /* Bitwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bitwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5241918A2281689F00135FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		52E907E122842D3600398FF6 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		52E907E322844F7C00398FF6 /* ReceiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveViewController.swift; sourceTree = "<group>"; };
 		599973E67B75A09F74B554E5 /* Pods-BitwalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletTests.debug.xcconfig"; path = "Target Support Files/Pods-BitwalletTests/Pods-BitwalletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5A7F5EE12749EBFEF6B0734A /* Pods_BitwalletUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BitwalletUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6514169FB2BF0972CC9870EA /* Pods-Bitwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bitwallet.release.xcconfig"; path = "Target Support Files/Pods-Bitwallet/Pods-Bitwallet.release.xcconfig"; sourceTree = "<group>"; };
 		7549F6413D6B997BB9835B9E /* Pods-BitwalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BitwalletTests.release.xcconfig"; path = "Target Support Files/Pods-BitwalletTests/Pods-BitwalletTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,7 +102,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EFAAC0A0B274C640AD65B9D /* Pods_BitwalletUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +157,8 @@
 				524191BE2281A4EF00135FA6 /* MainViewController.swift */,
 				52E907E322844F7C00398FF6 /* ReceiveViewController.swift */,
 				52090309228D45A0004999BD /* SignUpViewController.swift */,
+				5204F0612299C622003B34D3 /* SendViewController.swift */,
+				5220AECE229A5E9E00D0988D /* ScanQRCodeViewController.swift */,
 			);
 			path = Bitwallet;
 			sourceTree = "<group>";
@@ -185,7 +186,6 @@
 			children = (
 				19180AC5EC8C1530F5373876 /* Pods_Bitwallet.framework */,
 				40B7FE06B6E386DA880F92EF /* Pods_BitwalletTests.framework */,
-				5A7F5EE12749EBFEF6B0734A /* Pods_BitwalletUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,8 +197,6 @@
 				6514169FB2BF0972CC9870EA /* Pods-Bitwallet.release.xcconfig */,
 				599973E67B75A09F74B554E5 /* Pods-BitwalletTests.debug.xcconfig */,
 				7549F6413D6B997BB9835B9E /* Pods-BitwalletTests.release.xcconfig */,
-				1AE9DBF7DDFD69295FA0E993 /* Pods-BitwalletUITests.debug.xcconfig */,
-				19033F25CC6579E8BFB73688 /* Pods-BitwalletUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -249,7 +247,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 524191B5228168A000135FA6 /* Build configuration list for PBXNativeTarget "BitwalletUITests" */;
 			buildPhases = (
-				B3B28BE50F02D0CF87788CDE /* [CP] Check Pods Manifest.lock */,
 				524191A2228168A000135FA6 /* Sources */,
 				524191A3228168A000135FA6 /* Frameworks */,
 				524191A4228168A000135FA6 /* Resources */,
@@ -394,28 +391,6 @@
 			shellScript = "#\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B3B28BE50F02D0CF87788CDE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BitwalletUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E6DDD9B447C780FE7E2CFEF1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -453,8 +428,10 @@
 				524191BD22817D8B00135FA6 /* LogInViewController.swift in Sources */,
 				5209030D228D654E004999BD /* Firebase.swift in Sources */,
 				52E907E422844F7C00398FF6 /* ReceiveViewController.swift in Sources */,
+				5204F0622299C622003B34D3 /* SendViewController.swift in Sources */,
 				524191BF2281A4EF00135FA6 /* MainViewController.swift in Sources */,
 				5229D486229875510077E821 /* Design.swift in Sources */,
+				5220AECF229A5E9E00D0988D /* ScanQRCodeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,7 +686,6 @@
 		};
 		524191B6228168A000135FA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1AE9DBF7DDFD69295FA0E993 /* Pods-BitwalletUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -730,7 +706,6 @@
 		};
 		524191B7228168A000135FA6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19033F25CC6579E8BFB73688 /* Pods-BitwalletUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

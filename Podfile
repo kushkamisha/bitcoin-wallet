@@ -13,6 +13,7 @@ target 'Bitwallet' do
   pod 'SwiftLint'
   pod 'Loaf'
   pod 'PaddingLabel', '1.1'
+  pod 'lottie-ios'
 
   target 'BitwalletTests' do
     inherit! :search_paths

@@ -52,9 +52,9 @@ class MainViewController: UIViewController {
             self.calcUsdBalance()
         })
     }
-    
+
     func loadUserBtcBalance(onCompleted: @escaping () -> Void) {
-        AF.request("http://127.0.0.1:8364/wallet/getbalance", headers: self.headers).responseJSON { response in
+        AF.request("http://176.37.12.50:1234/wallet/getbalance", headers: self.headers).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let dict = data as! NSDictionary
@@ -79,7 +79,7 @@ class MainViewController: UIViewController {
     }
     
     func loadBtcRates(onCompleted: @escaping () -> Void) {
-        AF.request("http://127.0.0.1:8364/rates/btcusd", headers: self.headers).responseJSON { response in
+        AF.request("http://176.37.12.50:1234/rates/btcusd", headers: self.headers).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let dict = data as! NSDictionary
@@ -146,13 +146,6 @@ class MainViewController: UIViewController {
             self.btcRatesCompletionFlag = true
             self.calcUsdBalance()
         })
-    }
-    
-    @IBAction func logout(_ sender: Any) {
-        // Navigate to the login screen
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen")
-        self.present(newViewController, animated: true, completion: nil)
     }
 
 }

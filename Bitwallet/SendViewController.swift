@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import Firebase
 import FirebaseAuth
-import Loaf
 
 class SendViewController: UIViewController {
     
@@ -95,13 +94,16 @@ class SendViewController: UIViewController {
             headers["comment"] = self.txComment.text
         }
         
-        AF.request("http://127.0.0.1:8364/wallet/sendTransaction", headers: headers).responseJSON { response in
+        AF.request("http://176.37.12.50:1234/wallet/sendTransaction", headers: headers).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let dict = data as! NSDictionary
                 let status = dict["status"] as! String
                 if (status == "success") {
-                    Loaf("The transaction was sent", state: .success, sender: self).show()
+                    // Navigate to the success screen
+                    let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let newViewController = storyBoard.instantiateViewController(withIdentifier: "SuccessScreen")
+                    self.present(newViewController, animated: true, completion: nil)
                 } else {
                     let alert = UIAlertController(title: "Oops", message: "Something went wrong. Try again.", preferredStyle: .alert)
                     self.present(alert, animated: true)

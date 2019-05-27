@@ -46,7 +46,7 @@ class ReceiveViewController: UIViewController {
         headers["x-api-key"] = apiKey
         headers["user-id"] = userId
         
-        AF.request("http://127.0.0.1:8364/wallet/createAddress", headers: headers).responseJSON { response in
+        AF.request("http://176.37.12.50:1234/wallet/createAddress", headers: headers).responseJSON { response in
             switch response.result {
             case .success(let data):
                 let dict = data as! NSDictionary

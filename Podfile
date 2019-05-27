@@ -12,6 +12,7 @@ target 'Bitwallet' do
   pod 'Firebase/Auth'
   pod 'SwiftLint'
   pod 'Loaf'
+  pod 'PaddingLabel', '1.1'
 
   target 'BitwalletTests' do
     inherit! :search_paths

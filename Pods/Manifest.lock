@@ -64,6 +64,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PaddingLabel (1.1)
   - SwiftLint (0.32.0)
 
 DEPENDENCIES:
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - Firebase/Core
   - KeychainSwift (~> 15.0)
   - Loaf
+  - PaddingLabel (= 1.1)
   - SwiftLint
 
 SPEC REPOS:
@@ -90,6 +92,7 @@ SPEC REPOS:
     - KeychainSwift
     - Loaf
     - nanopb
+    - PaddingLabel
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -106,8 +109,9 @@ SPEC CHECKSUMS:
   KeychainSwift: c6fc018d287804faf1ce3f258a1e51a7178c8382
   Loaf: 070a55b75527d541e710f69c0c7642ead3676a96
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PaddingLabel: d11fee9d2be54122a037bb4a429fb5d3f2c73d58
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
 
-PODFILE CHECKSUM: 9f02d5a861f18e1fea820b20f0ce97b9ceae2793
+PODFILE CHECKSUM: 5b9dac8a691ef98e5f180b8071257b1c573c96ff
 
 COCOAPODS: 1.7.0.rc.1

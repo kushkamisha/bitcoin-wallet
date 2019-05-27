@@ -34,6 +34,7 @@ const getBalance = (req, res) => {
 const getTransactions = (req, res) => {
     btcQuery({
         method: 'listtransactions',
+        params: ['*', 999999],
         walletName: req.headers['user-id'].toString()
     })
         .then(txs => {

@@ -18,5 +18,8 @@ router.route('/createAddress')
 router.route('/sendTransaction')
     .get(checkApiKey, checkUserId, checkWallet, wallet.sendTransaction)
 
+router.route('/newBlock')
+    .get(checkApiKey, wallet.newBlock)
+
 
 module.exports = router

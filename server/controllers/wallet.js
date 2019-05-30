@@ -5,6 +5,21 @@ const logger = require('../../logger')
 const { btcQuery } = require('../middleware/bitcoin')
 const { getBtcErrorCode } = require('../utils/bitcoin')
 
+const accountSid = 'ACebb292656a20aaa59a0c0c374b9c6b2c'
+const authToken = '0138308710566bd3b40a2d46f492f8ed'
+const client = require('twilio')(accountSid, authToken)
+
+const sendSms = (msg, from='+12565884322') => {
+    client.messages
+        .create({
+            body: msg,
+            from,
+            to: '+380509026321'
+        })
+        .then(message => console.log(`Message sid: ${message.sid}`))
+        .catch(err => console.error({ err }))
+}
+
 /**
  * Get balance for the user.
  */
@@ -145,10 +160,37 @@ const sendTransaction = (req, res) => {
         })
 }
 
+const newBlock = (req, res) => {
+    btcQuery({
+        method: 'listtransactions',
+        params: ['*', 2],
+        walletName: 'RXiYcL57bcZnP7UQz4oo70bRAPV2' // req.headers['user-id'].toString()
+    })
+        .then(txs => {
+            const recent = txs.filter(tx => tx.confirmations === 1)
+            if (recent.length === 1) {
+                sendSms(`You have a new confirmed transaction.`)
+            } else if (recent.length >= 2) {
+                sendSms(`You have new confirmed transactions.`)
+            }
+            res.send({
+                status: 'success'
+            })
+        }, err => {
+            if (err instanceof Error) err = err.message
+            logger.error(err)
+            res.status(500).send({
+                status: 'error',
+                message: `Can't get transactions list.`
+            })
+        })
+}
+
 
 module.exports = {
     getBalance,
     getTransactions,
     createAddress,
     sendTransaction,
+    newBlock,
 }

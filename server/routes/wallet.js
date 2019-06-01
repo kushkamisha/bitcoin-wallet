@@ -2,7 +2,7 @@
 
 const express = require('express')
 const wallet = require('../controllers/wallet')
-const checkToken = require('../middleware/check-token')
+const { checkToken, checkApiKey } = require('../middleware/check')
 const { checkWallet } = require('../middleware/bitcoin')
 const router = express.Router()
 
@@ -17,6 +17,9 @@ router.route('/createAddress')
 
 router.route('/sendTransaction')
     .get(checkToken, checkWallet, wallet.sendTransaction)
+
+router.route('/newBlock')
+    .get(checkApiKey, wallet.newBlock)
 
 
 module.exports = router

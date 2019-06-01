@@ -16,6 +16,13 @@ module.exports = {
         password: process.env.DEV_PGPASSWORD,
         port: process.env.DEV_PGPORT,
     },
+    sms: {
+        accountSid: process.env.DEV_TWILIO_ACCOUNT_SID,
+        authToken: process.env.DEV_TWILIO_AUTH_TOKEN,
+        from: process.env.DEV_TWILIO_FROM_PHONE,
+        to: process.env.DEV_TWILIO_TO_PHONE,
+    },
     jwtSecret: process.env.DEV_JWT_SECRET,
-    encryptionKey: process.env.DEV_ENCRYPTION_KEY
+    encryptionKey: process.env.DEV_ENCRYPTION_KEY,
+    apiKey: process.env.DEV_API_KEY
 }

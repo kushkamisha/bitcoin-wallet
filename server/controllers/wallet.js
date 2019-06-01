@@ -4,6 +4,21 @@ const validate = require('bitcoin-address-validation')
 const logger = require('../../logger')
 const { btcQuery } = require('../middleware/bitcoin')
 const { getBtcErrorCode } = require('../utils/bitcoin')
+const { accountSid, authToken, from, to } = require('../../config').sms
+const client = require('twilio')(accountSid, authToken)
+
+let theLastUserTx = ''
+
+const sendSms = (msg, from, to) => {
+    client.messages
+        .create({
+            body: msg,
+            from,
+            to
+        })
+        .then(message => logger.verbose(`Message sid: ${message.sid}`))
+        .catch(err => logger.error({ err }))
+}
 
 /**
  * Get balance for the user.
@@ -34,6 +49,7 @@ const getTransactions = (req, res) => {
         walletName: req.locals.UserId.toString()
     })
         .then(txs => {
+            txs = txs.reverse()
             res.send({
                 status: 'success',
                 txs: txs.map(tx => ({
@@ -140,10 +156,53 @@ const sendTransaction = (req, res) => {
         })
 }
 
+const newBlock = (req, res) => {
+    btcQuery({
+        method: 'listtransactions',
+        params: ['*', 2],
+        walletName: '7'
+    })
+        .then(txs => {
+            txs = txs.reverse()
+            const recent = txs.filter(tx => tx.confirmations === 1)
+            if (recent.length && recent[0].txid !== theLastUserTx) {
+                if (recent.length === 1) {
+                    logger.verbose('New transaction was confirmed.')
+                    res.send({
+                        status: 'success',
+                        newTx: true
+                    })
+                    sendSms(`You have a new confirmed transaction.`, from, to)
+                } else if (recent.length >= 2) {
+                    logger.verbose('New transactions were confirmed.')
+                    res.send({
+                        status: 'success',
+                        newTx: true
+                    })
+                    sendSms(`You have new confirmed transactions.`, from, to)
+                }
+                theLastUserTx = recent[0].txid
+            } else {
+                res.send({
+                    status: 'success',
+                    newTx: false
+                })
+            }
+        }, err => {
+            if (err instanceof Error) err = err.message
+            logger.error(err)
+            res.status(500).send({
+                status: 'error',
+                message: `Can't get transactions list.`
+            })
+        })
+}
+
 
 module.exports = {
     getBalance,
     getTransactions,
     createAddress,
     sendTransaction,
+    newBlock
 }

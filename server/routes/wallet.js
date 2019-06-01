@@ -21,5 +21,8 @@ router.route('/sendTransaction')
 router.route('/newBlock')
     .get(checkApiKey, wallet.newBlock)
 
+router.route('/checkForNewTxs')
+    .get(checkToken, wallet.checkForNewTxs)
+
 
 module.exports = router

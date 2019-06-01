@@ -6,6 +6,7 @@ const { btcQuery } = require('../middleware/bitcoin')
 const { getBtcErrorCode } = require('../utils/bitcoin')
 const { accountSid, authToken, from, to } = require('../../config').sms
 const client = require('twilio')(accountSid, authToken)
+const bot = require('./telegram-bot')
 
 let theLastUserTx = ''
 
@@ -159,7 +160,7 @@ const sendTransaction = (req, res) => {
 const newBlock = (req, res) => {
     btcQuery({
         method: 'listtransactions',
-        params: ['*', 2],
+        params: ['*', 100],
         walletName: '7'
     })
         .then(txs => {
@@ -172,6 +173,13 @@ const newBlock = (req, res) => {
                         status: 'success',
                         newTx: true
                     })
+                    // Notify a user via telegram and sms
+                    if (bot.chatId)
+                        bot.telegram.sendMessage(
+                            bot.chatId, `
+                            You have a new confirmed transaction.
+                            TxId: ${recent[0].txid}
+                            `)
                     sendSms(`You have a new confirmed transaction.`, from, to)
                 } else if (recent.length >= 2) {
                     logger.verbose('New transactions were confirmed.')
@@ -179,6 +187,17 @@ const newBlock = (req, res) => {
                         status: 'success',
                         newTx: true
                     })
+                    // Notify a user via telegram and sms
+                    if (bot.chatId) {
+                        bot.telegram.sendMessage(
+                            bot.chatId, 'You have ' + recent.length +
+                            ' new confirmed transactions.')
+                        recent.map(tx => {
+                            bot.telegram.sendMessage(
+                                bot.chatId,
+                                `TxId: ${tx.txid}`)
+                        })
+                    }
                     sendSms(`You have new confirmed transactions.`, from, to)
                 }
                 theLastUserTx = recent[0].txid
@@ -198,11 +217,19 @@ const newBlock = (req, res) => {
         })
 }
 
+const checkForNewTxs = (req, res) => {
+    if (bot.chatId)
+        bot.telegram.sendMessage(
+            bot.chatId, 'You have a new confirmed transaction')
+    res.end()
+}
+
 
 module.exports = {
     getBalance,
     getTransactions,
     createAddress,
     sendTransaction,
-    newBlock
+    newBlock,
+    checkForNewTxs
 }

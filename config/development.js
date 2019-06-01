@@ -24,5 +24,6 @@ module.exports = {
     },
     jwtSecret: process.env.DEV_JWT_SECRET,
     encryptionKey: process.env.DEV_ENCRYPTION_KEY,
-    apiKey: process.env.DEV_API_KEY
+    apiKey: process.env.DEV_API_KEY,
+    telegramApiToken: process.env.DEV_TELEGRAM_API_TOKEN
 }

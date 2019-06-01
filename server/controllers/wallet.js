@@ -17,7 +17,7 @@ const sendSms = (msg, from, to) => {
             from,
             to
         })
-        .then(message => logger.verbose(`Message sid: ${message.sid}`))
+        .then(message => logger.debug(`Message sid: ${message.sid}`))
         .catch(err => logger.error({ err }))
 }
 
@@ -189,6 +189,7 @@ const newBlock = (req, res) => {
                     })
                     // Notify a user via telegram and sms
                     if (bot.chatId) {
+                        logger.debug('New txs notification -> telegram')
                         bot.telegram.sendMessage(
                             bot.chatId, 'You have ' + recent.length +
                             ' new confirmed transactions.')

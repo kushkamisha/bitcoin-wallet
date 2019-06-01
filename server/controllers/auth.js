@@ -2,10 +2,12 @@
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const https = require('https')
 const config = require('../../config')
 const db = require('../../db')
 const logger = require('../../logger')
 const Breaker = require('../utils/breaker')
+const bot = require('./telegram-bot')
 
 const register = (req, res) => {
     if (!req.body.username)
@@ -94,6 +96,15 @@ const login = (req, res) => {
                         config.jwtSecret,
                         { expiresIn: '24h' } // expires in 24 hours
                     )
+                    // Set bot's user token
+                    bot.userToken = token
+                    if (bot.chatId) {
+                        const sendSuccessUrl = 'https://api.telegram.org/bot' +
+                            config.telegramApiToken + '/sendmessage?text=You%' +
+                            '27ve+successfully+logged+in&chat_id=' + bot.chatId
+                        https.get(sendSuccessUrl, () => {})
+                    }
+
                     res.send({ status: 'success', token })
                 })
         }, err => {

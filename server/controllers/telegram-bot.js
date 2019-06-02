@@ -20,9 +20,11 @@ bot.command('login', (ctx) => {
 bot.command('notify', (ctx) => {
     if (!bot.userToken)
         ctx.reply(`You should log in first. Please ask the bot to /login`)
-    else
+    else {
+        logger.debug(`User's token: ${bot.userToken}`)
         ctx.reply('Congratulations! Now you\'ll receive all your new ' +
             'transactions.')
+    }
 })
 
 module.exports = bot

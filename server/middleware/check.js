@@ -2,9 +2,11 @@
 
 const jwt = require('jsonwebtoken')
 const config = require('../../config')
+const bot = require('../controllers/telegram-bot')
+const logger = require('../../logger')
 
 const checkToken = (req, res, next) => {
-    var token = req.headers['x-access-token']
+    const token = req.headers['x-access-token']
     if (!token) return res.status(401).send({
         auth: false,
         message: 'No token provided.'
@@ -39,7 +41,27 @@ const checkApiKey = (req, res, next) => {
         })
 }
 
+const setUserIdFromBot = (req, res, next) => {
+    const defaultUserId = '7'
+
+    if (bot && bot.userToken) {
+        jwt.verify(bot.userToken, config.jwtSecret, (err, decoded) => {
+            if (err) {
+                logger.error(err)
+                req.locals.UserId = defaultUserId
+                next()
+            }
+
+            if (!req.locals)
+                req.locals = {}
+            req.locals.UserId = decoded.UserId
+        })
+    }
+    next()
+}
+
 module.exports = {
     checkToken,
-    checkApiKey
+    checkApiKey,
+    setUserIdFromBot
 }

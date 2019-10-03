@@ -10,6 +10,8 @@ const bot = new Telegraf(telegramApiToken)
 bot.launch()
 bot.start((ctx) => {
     ctx.reply(`Welcome! I'll send you all your new transactions.`)
+    ctx.reply('Use /login to login.')
+    ctx.reply('Use /notify to get notifications about new transactions.')
     bot.chatId = ctx.chat.id
     logger.debug(`Telegram's chat id: ${bot.chatId}`)
 })
